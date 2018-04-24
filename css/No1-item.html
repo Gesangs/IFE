@@ -9,59 +9,12 @@
             padding: 0;
             margin: 0;
         }
-        /* .box ul {
-            list-style: none;
-        }
-        .box ul li {
-            width: 200px;
-            height: 40px;
-            line-height: 40px;
-            text-align: center;
-            float: left;
-            position: relative;
-        }
-        .box ul li::before{
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            transform: scaleX(0);
-            transition: transform 0.3s;
-            background-color: blue;            
-            transform-origin: 50% 50%;
-        }
-        .selectLi{
-            color: blue;            
-        }
-        .box ul li.selectLi::before {
-            transform: scaleX(1);
-        } */
         .box {
             width: 150px;
             height: 50px;
             text-align: center;
             line-height: 50px;
             position: relative;
-        }
-        .box::before{
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            transform: scaleX(0);
-            transition: transform 3s;
-            background-color: blue;            
-            transform-origin: 50% 50%;
-        }
-        div.selectDiv::before {
-            transform: scaleX(1);            
-        }
-        .selectDiv{
-            color: blue;
         }
         .btn{
             width: 80px;
@@ -71,35 +24,37 @@
             border-radius: 5px;
             border: 1px solid cadetblue;
         }
+        .box::before{
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            transform: scaleX(0);
+            transition: transform .3s;
+            background-color: blue;            
+            transform-origin: 50% 50%;
+        }
+        div.selectDiv::before {
+            transform: scaleX(1);            
+        }
+        .selectDiv{
+            color: blue;
+        }
+        
     </style>
 </head>
 <body>
-    <!-- <div class="box">
-        <ul>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-        </ul>
-    </div> -->
     <div class="box">前端</div>
     <div class="btn">切换样式</div>
     <script>
-        // const $box = document.getElementsByClassName("box")[0];
-        // $box.addEventListener("click", selectLi, false);
-        // function selectLi(e){
-        //     const $selectLi = document.getElementsByClassName("selectLi")[0];
-        //     $selectLi ? $selectLi.classList.remove("selectLi") : "";
-        //     const $li = e.target;
-        //     $li.classList.add("selectLi");
-        // }
         (function(){
             const $btn = document.getElementsByClassName("btn")[0];
-            $btn.addEventListener("click", selectDiv, false);
-            function selectDiv(){
-                const $box = document.getElementsByClassName("box")[0];
-                $box.classList.toggle("selectDiv");
-            }
+            const $box = document.getElementsByClassName("box")[0]; 
+            $btn.addEventListener("click", () => {
+                $box.classList.toggle("selectDiv");                
+            }, false);
         })()
     </script>
 </body>

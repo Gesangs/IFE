@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>两栏(百分比)布局</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .wrap {
+            width: 100%;
+        }
+        .wrap, .left, .right {
+            height: 300px;
+        }
+        .left {
+            width: 30%;
+            background-color: blue; 
+        }
+        .right {
+            width: 70%;
+            background-color: red;
+        }
+        .clearfix:after {
+            content: " ";
+            display: table;
+            visibility: hidden;
+            clear: both;
+        }
+
+        /*  margin、padding、top、left、width 等属性取百分比时，均基于父元素的宽度计算
+            css3 的 translate 的百分比是按照自身宽度计算的
+         */
+
+        
+        /* 理论上 float、position、inline-block 这几个属性任意组合皆可实现两栏布局  */
+
+
+        /* 双float
+
+        .left, .right {
+            float: left;
+        } */
+
+
+        /* float + margin
+
+        .left {
+            float: left;
+        }
+        .right {
+            margin-left: 30%;
+        } */
+
+
+        /* 双inline-block
+
+        .wrap {
+            font-size: 0px;
+        }
+        .left, .right {
+            display: inline-block;
+            font-size: 16px;
+        } */
+        
+
+        /* inline-block + position
+
+        .wrap {
+            position: relative;
+        }
+        .left {
+            display: inline-block;
+        }
+        .right {
+            position: absolute;
+            top: 0;
+            left: 30%;
+        } */
+
+        /* 双position
+
+        .wrap {
+            position: relative;
+        }
+        .left, .right {
+            position: absolute;
+            top: 0;
+        }
+        .right {
+            left: 30%;
+        } */
+
+
+        /* position + margin
+
+        .wrap {
+            position: relative;
+        }
+        .left {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .right {
+            margin-left: 30%;
+        }  */
+        
+
+        /* flex */
+
+        .wrap {
+            display: flex;
+            align-items: flex-start;
+        }
+        
+
+        /* grid
+
+        .wrap {
+            display: grid;
+            grid-template-columns: 30% 70%;
+        }
+        .left, .right {
+            width: auto;
+        } */
+    </style>
+</head>
+<body>
+    <div class="wrap clearfix">
+        <div class="left"></div>
+        <div class="right"></div>
+    </div>
+</body>
+</html>

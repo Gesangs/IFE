@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>flex-grid</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .wrap, .main, .left, .right {
+            height: 300px;
+        }
+
+
+        .wrap {
+            display: flex;
+            align-items: flex-start;
+        }
+        .left, .right {
+            width: 200px;
+            flex: 0 0 200px;
+            background-color: burlywood;
+        }
+        .left {
+            order: -1;
+        }
+        .main {
+            flex: 1 0 0;
+            background-color: brown;
+        }
+
+        /* grid
+        .wrap {
+            display: grid;
+            grid-template-columns: 200px auto 200px;
+        }
+        .left, .right {
+            background-color: brown;
+        }
+        .main {
+            background-color: blue;
+        } */
+    </style>
+</head>
+<body>
+    flex
+    <div class="wrap">
+        <div class="main"></div>
+        <div class="left"></div>
+        <div class="right"></div>
+    </div>
+
+
+    <!-- grid
+    <div class="wrap">
+        <div class="left"></div>
+        <div class="main"></div>
+        <div class="right"></div>
+    </div> -->
+</body>
+</html>

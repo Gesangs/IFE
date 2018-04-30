@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>两栏(定宽)布局</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .wrap {
+            width: 100%;            
+        }
+        .left {
+            width: 300px;
+            height: 300px;            
+            background-color: blue;
+        }
+        .right {
+            height: 300px;            
+            background-color: brown;
+        }
+
+        
+        /* 利用css计算属性可动态计算宽度，此时与百分比两栏布局的实现方式基本相同
+        注意 - 左右两边一定要有空格 */
+        /* .right {
+            width: calc(100% - 300px);
+        } */
+
+
+        /* flex
+        子元素的flex属性的三个值依次为：
+        有空余空间时是否放大自身以填充、
+        空间不足时是否缩小自身以容纳、
+        设置固定宽度 */
+
+        .wrap {
+            display: flex;
+        }
+        .left {
+            flex: 0 0 300px;
+        }
+        .right {
+            flex: 1 0 0;
+        }
+
+
+
+        /* grid
+
+        .wrap {
+            display: grid;
+            grid-template-columns: 300px auto;
+        } */
+
+
+        /* 双飞翼变种
+
+        .two-wrap .left {
+            float: left;
+            margin-left: -100%;
+        }
+        .two-wrap .right-wrap {
+            float: left;
+            width: 100%;
+        }
+        .two-wrap .right-wrap .right {
+            margin-left: 300px;
+            margin-right: 0px;
+        } */
+
+
+        /* 圣杯变种
+
+        .two-wrap {
+            padding-left: 300px;
+            padding-right: 0px;
+        }
+        .two-wrap .left {
+            float: left;
+            margin-left: -300px;
+        }
+        .two-wrap .right {
+            float: left;
+            width: 100%;
+        } */
+
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="left"></div>
+        <div class="right"></div>
+    </div>
+
+    <br>
+
+    <!-- 双飞翼变种
+    <div class="two-wrap">
+        <div class="right-wrap">
+            <div class="right">
+                asdjkf
+            </div>
+        </div>
+        <div class="left"></div>
+    </div> -->
+
+    <br>
+
+    <!-- 圣杯变种
+    <div class="two-wrap">
+        <div class="left"></div>
+        <div class="right"></div>
+    </div> -->
+</body>
+</html>

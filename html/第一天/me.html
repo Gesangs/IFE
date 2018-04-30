@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>简历</title>
+    <style>
+        html, body, h4, h5 {
+            margin: 0;
+            padding: 0;
+        }
+        html, body {
+            background-color: #e8e8e8;
+        }
+        .clearfix:after {
+            content: " ";
+            display: table;
+            visibility: hidden;
+            clear: both;
+            height: 0;
+            line-height: 0;
+        }
+        .wrap {
+            width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+        }
+        .wrap .title {
+            text-align: center;
+            margin-top: 0px;
+        }
+        .wrap-left, .wrap-right {
+            float: left;
+        }
+        .wrap-left {
+            width: 35%;
+        }
+        .wrap-right {
+            width: 64%;
+            box-sizing: border-box;
+            padding-left: 20px;
+            border-left: 1px solid black;            
+        }
+        .wrap-left .head-pic img{
+            display: block;
+            width: 110px;
+            height: 130px;
+            margin: 20px auto 40px auto;
+        }
+        .section-title {
+            width: 90%;
+            margin: 30px 25px 10px 0;
+            border-bottom: 1px solid black;
+        }
+        .wrap-right .section-title {
+            width: 100%;
+        }
+        .section-title h4 {
+            margin: 5px 0 5px 10px;
+        }
+        .list {
+            list-style: none;
+            font-size: 12px;
+            margin: 0;
+            padding: 0;
+        }
+        .item {
+            height: 25px;
+            line-height: 25px;
+        }
+        .interest ul {
+            padding-left: 30px;
+        }
+        .name h3 {
+            display: inline-block;
+        }
+        .name .describe {
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap clearfix">
+        <h1 class="title">简历</h1>
+        <div class="wrap-left">
+            <div class="head-pic">
+                <img src="http://www.qqzhi.com/uploadpic/2014-09-23/000247589.jpg" />
+            </div>
+            <section class="message">
+                <div class="section-title">
+                    <h4>个人信息</h4>
+                </div>
+                <ul class="list">
+                    <li class="item">年龄：22岁</li>
+                    <li class="item">地址：江西南昌</li>
+                    <li class="item">手机：157xxxx0229</li>
+                    <li class="item">邮箱：gesangs@qq.com</li>
+                    <li class="item">专业：计算机科学与技术</li>
+                    <li class="item">学校：百度前端学院</li>
+                    <li class="item">毕业：2019年6月</li>
+                </ul>              
+            </section>
+            <section class="interest">
+                <div class="section-title">
+                    <h4>兴趣爱好</h4>
+                </div>
+                <ul class="list">
+                    <li class="item">健身</li>
+                    <li class="item">数码</li>
+                    <li class="item">阅读</li>
+                    <li class="item">旅游</li>
+                </ul>
+            </section>
+        </div>
+        <div class="wrap-right">
+            <article class="name">
+                <h3>张三</h3>
+                <span class="describe">忠于代码</span>
+            </article>
+            <section class="intention">
+                <div class="section-title">
+                    <h4>求职意向</h4>
+                </div>
+                <ul>
+                    <li>职位：web前端开发技术</li>
+                    <li>城市：珠海</li>
+                </ul>
+            </section>
+            <section class="project">
+                <div class="section-title">
+                    <h4>个人项目</h4>
+                </div>
+                <ol>
+                    <li>
+                        <h5>项目一</h5>
+                        <p>
+                            <ul>
+                                <li>项目介绍：......</li>
+                                <li>项目负责：......</li>
+                                <li>项目成果：......</li>
+                            </ul>
+                        </p>
+                    </li>
+                    <li>
+                        <h5>项目二</h5>
+                        <p>
+                            <ul>
+                                <li>项目介绍：......</li>
+                                <li>项目负责：......</li>
+                                <li>项目成果：......</li>
+                            </ul>
+                        </p>
+                    </li>
+                    <li>
+                        <h5>项目三</h5>
+                        <p>
+                            ......
+                        </p>
+                    </li>
+                </ol>
+            </section>
+            <section class="techStack">
+                <div class="section-title">
+                    <h4>技术栈</h4>
+                </div>
+                <ol>
+                    <li>HTML5</li>
+                    <li>CSS3</li>
+                    <li>ES5/ES6</li>
+                    <li>......</li>
+                </ol>
+            </section>
+            <section class="experience">
+                <div class="section-title">
+                    <h4>在校经历</h4>
+                </div>
+                <p>
+                    <ol>
+                        <li>多次获得奖学金</li>
+                        <li>获得XXX大赛一等奖</li>
+                        <li>获得XXX大赛一等奖</li>
+                        <li>
+                            ......
+                        </li>
+                    </ol>
+                </p>
+            </section>
+        </div>
+    </div>
+</body>
+</html>

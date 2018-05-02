@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>设计稿</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        html,
+        body,
+        .wrap,
+        .header,
+        .banner,
+        .nav-wrap,
+        .footer {
+            width: 100%;
+        }
+
+        .header {
+            background-color: rgb(51, 51, 51);
+        }
+
+        .header-content,
+        .banner-content,
+        .nav-list,
+        .content {
+            width: 960px;
+            margin: 0 auto;
+        }
+
+        .header-content {
+            height: 80px;
+            line-height: 80px;
+            color: white;
+        }
+
+        .header-logo {
+            height: inherit;
+            display: inline-block;
+        }
+
+        .header-nav {
+            --height: 20px;
+            float: right;
+            font-size: 13px;
+            height: var(--height);
+            line-height: var(--height);
+        }
+
+        .header-nav li {
+            padding: 10px;
+            height: var(--height);
+            float: left;
+        }
+
+        .banner {
+            height: 240px;
+            background-color: rgb(103, 187, 50);
+        }
+
+        .banner-content {
+            height: inherit;
+            position: relative;
+        }
+
+        .banner-list {
+            --color: rgb(72, 115, 47);
+            --colorActive: rgb(20, 37, 10);
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .banner-list li {
+            display: inline-block;
+            margin-left: 5px;
+            width: 30px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            color: var(--color);
+            border: 1px solid var(--color);
+            background-color: rgb(178, 221, 153);
+            font-size: 14px;
+        }
+
+        .banner-list li.active {
+            padding-top: 10px;
+            background-color: rgb(224, 241, 214);
+            color: var(--colorActive);
+            border: 1px solid var(--colorActive);
+        }
+
+        .nav-wrap {
+            --color: #e8e8e8;
+            height: 60px;
+            font-size: 0;
+            border-bottom: 1px solid var(--color);
+        }
+
+        .nav-list li {
+            font-size: 14px;
+            display: inline-block;
+            width: 80px;
+            margin-top: 19px;
+            text-align: center;
+            line-height: 40px;
+            height: 40px;
+            background-color: rgb(238, 238, 238);
+            border: 1px solid var(--color);
+            border-radius: 16px 16px 0 0;
+        }
+
+        .nav-list li.active {
+            background-color: white;
+            border-bottom-color: white;
+        }
+
+        .content-item {
+            flex: 1 1 0;
+            padding: 80px;
+            border: 1px solid #e8e8e8;
+        }
+
+        .content-column-1,
+        .content-column-2,
+        .content-column-3 {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        div.content-item ~ div.content-item {
+            margin-left: 10px;
+        }
+
+        .footer {
+            height: 120px;
+            text-align: center;
+            color: white;
+            padding: 10px 0;
+            margin-top: 10px;
+            background-color: rgb(102,102,102);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="header">
+            <div class="header-content">
+                <h2 class="header-logo">Logo</h2>
+                <ul class="header-nav">
+                    <li>
+                        <a>Github</a>
+                    </li>
+                    <li>
+                        <a>Register</a>
+                    </li>
+                    <li>
+                        <a>Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="banner">
+            <div class="banner-content">
+                <ul class="banner-list">
+                    <li>1</li>
+                    <li class="active">2</li>
+                    <li>3</li>
+                    <li>4</li>
+                </ul>
+            </div>
+        </div>
+        <div class="nav-wrap">
+            <ul class="nav-list">
+                <li class="active">HOME</li>
+                <li>PROFILE</li>
+                <li>ABOUT</li>
+            </ul>
+        </div>
+        <div class="content">
+            <div class="content-column-1">
+                <div class="content-item">This Content 1</div>
+                <div class="content-item">MaybeContent 2</div>
+                <div class="content-item">Content3</div>
+            </div>
+
+            <div class="content-column-2">
+                <div class="content-item">Content4</div>
+                <div class="content-item">Content5</div>
+                <div class="content-item">Content6</div>
+                <div class="content-item">Content7</div>
+            </div>
+
+            <div class="content-column-3">
+                <div class="content-item">Content8</div>
+                <div class="content-item">Content9</div>
+                <div class="content-item">Content10</div>
+            </div>
+        </div>
+        <div class="footer">© 2018 ife.baidu.com</div>
+    </div>
+</body>
+
+</html>

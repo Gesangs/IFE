@@ -4,8 +4,43 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .container, .left, .middle, .right {
+            height: 500px;
+        }
+        .container {
+            width: 100%;
+        }
+        .middle{
+            padding: 0 200px;
+            position: relative;
+        }
+        .left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200px;
+            background-color: blue;
+        }
+        .right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            background-color: blue;
+        }
+        
+    </style>
 </head>
 <body>
-    
+    <div class="container">
+        <div class="middle">middle</div>
+        <div class="left"></div>
+        <div class="right"></div>
+    </div>
 </body>
 </html>

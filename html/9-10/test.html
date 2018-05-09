@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>IFE ECMAScript</title>
+</head>
+<body>        
+    <input id="dec-number" type="number" placeholder="输入一个十进制非负整数">
+    <input id="bin-bit" type="number" placeholder="输入转化后二进制数字位数">
+    <button id="trans-btn">转化为二进制</button>
+    <p id="result">运算结果</p>
+    <p id="numberGame"></p>
+    <p id="list"></p>
+    <table id="table"></table>
+    <script>
+
+window.onload =  function() {
+    function dec2bin(NUM, bin) {
+        let arr = [];
+        while (NUM || arr.length < bin) {
+            if(!NUM) {
+                arr.unshift(0);
+                continue;
+            }
+            arr.unshift(NUM % 2);
+            NUM = Math.floor(NUM / 2);
+        } 
+        if(arr.length > bin) console.log("输入错误！");
+        return arr.join('');
+    }
+    const $num = document.getElementById("dec-number");
+    const $bin = document.getElementById("bin-bit");
+    const $btn = document.getElementById("trans-btn");
+    const $result = document.getElementById("result");
+
+    $btn.onclick = () => {
+        const num = $num.value;
+        const bin = $bin.value;
+        if (num < 0) {
+            console.log("请输入一个非负数！");
+            return;
+        }
+        const result = dec2bin(num, bin)
+        $result.innerHTML = "运算结果：" + result;
+    };
+
+    const $game = document.getElementById("numberGame")
+    let start = 1;
+    let timer = setInterval(() => {
+        let number = start++;
+        if(number.toString().match("3") || !(number % 3)) number = "PA";
+        $game.innerHTML += number + "，";
+        if(!((start - 1) % 10)) {
+            const $br = document.createElement('br');
+            $game.appendChild($br);
+        }
+        if(number == 100) clearInterval(timer);
+    }, 100)
+
+
+    const $list = document.getElementById("list");
+    for(let i = 1; i <= 9; i++) {
+        for(let j = 1; j <= i; j++) {
+            $list.innerHTML += `${i} * ${j} = ${i*j} `;
+        }
+        const $br = document.createElement('br');
+        $list.appendChild($br);
+    }
+
+    const $table = document.getElementById("table");
+    for(let i = 1; i <= 9; i++) {
+        let $tr = document.createElement("tr");
+        for(let j = 1; j <= i; j++) {
+            let $td = document.createElement("td");
+            $td.innerHTML = `${i} * ${j} = ${i*j} `;
+            $tr.appendChild($td);
+        }
+    $table.appendChild($tr);
+    }
+}
+
+    </script>
+</body>
+</html>

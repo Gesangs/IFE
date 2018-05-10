@@ -17,14 +17,21 @@
 window.onload =  function() {
     function dec2bin(NUM, bin) {
         let arr = [];
+        // 停止条件为： 
+        // 1.操作数为0，
+        // 2.达到精度
         while (NUM || arr.length < bin) {
+            // 操作数为0且未到达到精度时，开始补零
             if(!NUM) {
                 arr.unshift(0);
                 continue;
             }
+            // 将余数前插入数组
             arr.unshift(NUM % 2);
+            // 取整数部分
             NUM = Math.floor(NUM / 2);
         } 
+        // 如果精度小余结果长度
         if(arr.length > bin) console.log("输入错误！");
         return arr.join('');
     }
@@ -48,8 +55,10 @@ window.onload =  function() {
     let start = 1;
     let timer = setInterval(() => {
         let number = start++;
+        // 将操作数转换成字符串查找字符“3”
         if(number.toString().match("3") || !(number % 3)) number = "PA";
         $game.innerHTML += number + "，";
+        // 每输出10个就换行
         if(!((start - 1) % 10)) {
             const $br = document.createElement('br');
             $game.appendChild($br);

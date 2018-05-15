@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="fade-obj" style="width:300px;height:300px;background:#000"></div>
+    <button id="fade-btn">淡出</button>
+        
+    <script>
+        window.onload = function () {
+            const $div = document.getElementById("fade-obj");
+            const $btn = document.getElementById("fade-btn");
+            $div.style.opacity = 1;
+            
+            $btn.addEventListener("click", (e) => {
+                $btn.disabled = true;
+                let flag = $btn.innerHTML === "淡出" ? -1 : 1;
+                
+                let timer = setInterval(() => {
+                    $div.style.opacity =  Number($div.style.opacity) + flag/10;
+                    if (Number($div.style.opacity) == 0 || Number($div.style.opacity) == 1) {
+                        clearInterval(timer)
+                        $btn.innerHTML = flag == 1 ? "淡出" : "淡入";
+                        $btn.disabled = false;
+                    }
+                }, 100)
+            }, false)
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div style="background-image: url(http://ife.baidu.com/2016/static/img/erik_ce204002.jpg); width: 480px; height: 480px;">
+    </div>    
+
+    <script>
+        window.onload = function () {
+            const $div = document.querySelector("div");
+            let startY = 0;
+            let endY = -8160;
+            let once = -480;
+            let timer = setInterval(() => {
+                $div.style.backgroundPositionY = startY + "px";
+                console.log(startY)
+                if(startY == endY || startY == 0) {
+                    once = -once;
+                }
+                startY -= once;
+            }, 600)
+        }
+    </script>
+</body>
+</html>

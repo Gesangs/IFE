@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input id="name" type="text">    
+    <button id="submit-btn">Submit</button>
+
+    <script>
+        window.onload = function () {
+            const $input = document.getElementById("name");
+            const $btn = document.getElementById("submit-btn");
+
+            $btn.onclick = function () {
+                const value = $input.value;
+                console.log(value);
+            }
+
+            $input.onkeyup = function (e) {
+                if(e.keyCode === 27) { // ESC
+                    $input.value = "";
+                } else if (e.keyCode === 13) { // Enter
+                    $btn.click();
+                } else {
+                    return;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

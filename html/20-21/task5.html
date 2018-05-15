@@ -12,17 +12,19 @@
     <script>
         window.onload = function () {
             const $div = document.querySelector("div");
-            let startY = 0;
-            let endY = -8160;
-            let once = -480;
+            let positionY = 0, // 位置
+                startY = 0,    // 起始位置
+                endY = -7680,  // 终点
+                once = 480;    // 单步位移
             let timer = setInterval(() => {
-                $div.style.backgroundPositionY = startY + "px";
-                console.log(startY)
-                if(startY == endY || startY == 0) {
+                $div.style.backgroundPositionY = positionY + "px";
+                positionY -= once;
+
+                // 到达头尾的时候改变移动方向
+                if(positionY == startY || positionY == endY) {
                     once = -once;
                 }
-                startY -= once;
-            }, 600)
+            }, 200)
         }
     </script>
 </body>

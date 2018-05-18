@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>String</title>
+</head>
+<body>
+    <div>
+        <label>String A:
+            <input id="radio-a" type="radio" checked="true" name="str-obj" value="a">
+        </label>
+        <textarea id="str-a"></textarea>
+        <label>String B:
+            <input id="radio-b" type="radio" name="str-obj" value="b">
+        </label>
+        <textarea id="str-b"></textarea>        
+        <label>Num A：<input id="num-a" type="number" value="0"></label>
+        <label>Num B：<input id="num-b" type="number" value="1"></label>
+    </div>
+    <div>
+        <button onclick="getLength()">获取当前选中输入的内容长度</button>
+        <button onclick="getCharAtThree()">当前选中输入中的第3个字符</button>
+        <button onclick="aConcatB()">把两个输入框的文字连接在一起输出（concat）</button>
+        <button onclick="bInA()">输入B中的内容，在输入A的内容中第一次出现的位置（indexOf）</button>
+        <button onclick="aInB()">输入A中的内容，在输入B的内容中最后一次出现的位置（lastIndexOf）</button>
+        <button onclick="selectStr()">使用slice获取选中输入框内容的部分内容，参数为num-a及num-b</button>
+        <button onclick="getColumn()">当前选中输入框的行数</button>
+        <button onclick="getChildStr()">使用substr获取选中输入框内容的子字符串，参数为num-a及num-b</button>
+        <button onclick="toUp()">把所选输入框中的内容全部转为大写</button>
+        <button onclick="toLow()">把所选输入框中的内容全部转为小写</button>
+        <button onclick="delAllSpace()">把所选输入框中内容的半角空格全部去除</button>
+        <button onclick="swapAToAnther()">把所选输入框中内容的a全部替换成另外一个输入框中的内容</button>
+    </div>
+    <p id="result"></p>
+
+    <script>
+        const $p = document.getElementById("result");
+        let $selectedInput = null;
+        
+        window.addEventListener("click", (e) => {
+            if (e.target.nodeName === "BUTTON") {
+                const $selected = document.querySelector("input[type='radio']:checked");
+                $selectedInput = $selected && document.getElementById(`str-${$selected.value}`);            
+            }
+        }, true)
+
+        function getAllString() {
+            const aString = document.getElementById("str-a").value;
+            const bString = document.getElementById("str-b").value;
+
+            return {aString, bString};
+        }
+
+        function getAllNumber() {
+            const aNumber = document.getElementById("num-a").value;
+            const bNumber = document.getElementById("num-b").value;
+
+            return {aNumber, bNumber};
+        }
+
+        function getLength() {
+            $p.innerHTML = $selectedInput.value.length;
+        }
+
+        function getCharAtThree() {
+            $p.innerHTML = $selectedInput.value[2];
+        }
+
+        function aConcatB() {
+            const {aString, bString} = getAllString();
+
+            $p.innerHTML = aString.concat(bString);
+        }
+
+        function bInA() {
+            const {aString, bString} = getAllString();
+
+            $p.innerHTML = aString.indexOf(bString);            
+        }
+
+        function aInB() {
+            const {aString, bString} = getAllString();
+
+            $p.innerHTML = bString.lastIndexOf(aString);    
+        }
+
+        function selectStr() {
+            const {aNumber, bNumber} = getAllNumber();
+
+            $p.innerHTML = $selectedInput.value.slice(aNumber, bNumber);
+        }
+        
+        function getColumn() {
+            const cols = $selectedInput.cols;
+            const strLen = $selectedInput.value.length;
+
+            $p.innerHTML = strLen / cols + 1;
+        }
+
+        function getChildStr() {
+            const {aNumber, bNumber} = getAllNumber();
+
+            $p.innerHTML = $selectedInput.value.substr(aNumber, bNumber);
+        }
+        
+        function toUp() {
+            $p.innerHTML = $selectedInput.value.toUpperCase();
+        }    
+
+        function toLow() {
+            $p.innerHTML = $selectedInput.value.toLowerCase();
+        }
+
+        function delAllSpace() {
+            $p.innerHTML = $selectedInput.value.replace(/\s/g, "");
+        }
+
+        function swapAToAnther() {
+            const $selected = document.querySelector("input[type='radio']:checked");
+            const $antherInput = $selected.value === 'a' ? document.getElementById("str-b") : document.getElementById("str-a");
+            
+            $p.innerHTML = $selectedInput.value.replace(/a/g, $antherInput.value);
+        }
+    </script>
+</body>
+</html>

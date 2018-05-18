@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Math</title>
+</head>
+<body>
+    <div>
+        <label>Number A:<input id="radio-a" type="radio" name="math-obj" value="a"></label><input id="num-a" type="text">
+        <label>Number B:<input id="radio-b" type="radio" name="math-obj" value="b"></label><input id="num-b" type="text">
+    </div>
+    <div>
+        <button onclick="checkNumber()">判断当前选中的输入框输入内容是否为数字</button>
+        <button onclick="toFix()">把 A 四舍五入为 B 个小数位数的数字</button>
+        <button onclick="ABS()">当前选中数字的绝对值</button>
+        <button onclick="toUp()">对当前选中的数字进行上舍入</button>
+        <button onclick="toDown()">对当前选中的数字进行下舍入</button>
+        <button onclick="toInt()">把当前选中的数字四舍五入为最接近的整数</button>
+        <button onclick="selectMax()">返回 A 和 B 中的最高值</button>
+        <button onclick="selectMin()">返回 A 和 B 中的最低值</button>        
+    </div>
+    <p id="result"></p>
+
+    <script>
+        const $p = document.getElementById("result");
+        let $selectedInput = null;
+        
+        window.addEventListener("click", (e) => {
+            if (e.target.nodeName === "BUTTON") {
+                const $selected = document.querySelector("input[type='radio']:checked");
+                $selectedInput = $selected && document.getElementById(`num-${$selected.value}`);            
+            }
+        }, true)
+
+        function getSelectNum(input) {
+            const num = input.value;
+            if (isNaN(num)) {
+                input.value = "";
+                console.log("请输入合法数字");
+            } else {
+                return num.indexOf(".") > 0 ? parseFloat(num) : parseInt(num); 
+            }
+        }
+
+        function checkNumber() {
+            if($selectedInput && getSelectNum($selectedInput)) {
+                $p.innerHTML = "是数字"
+            } else {
+                $p.innerHTML = "不是数字"
+            }
+        }
+        
+        function getAllValue() {
+            const $aInput = document.querySelector("#num-a");
+            const $bInput = document.querySelector("#num-b");
+            const aValue = $aInput && getSelectNum($aInput);
+            const bValue = $bInput && getSelectNum($bInput);
+
+            return { aValue, bValue };
+        }
+
+        function toFix() {
+            const {aValue, bValue} = getAllValue();
+            if(aValue) {
+                $p.innerHTML = aValue.toFixed(bValue);
+            }                                    
+        }
+
+        function ABS() {
+            const num = $selectedInput && getSelectNum($selectedInput);
+            if(num) {
+                $p.innerHTML = Math.abs(num);
+            }
+        }
+
+        function toDown() {
+            const num = $selectedInput && getSelectNum($selectedInput);
+            if(num) {
+                $p.innerHTML = Math.floor(num);
+            }
+        }
+
+        function toUp() {
+            const num = $selectedInput && getSelectNum($selectedInput);
+            if(num) {
+                $p.innerHTML = Math.ceil(num);
+            }
+        }
+        
+        function toInt() {
+            const num = $selectedInput && getSelectNum($selectedInput);
+            if(num) {
+                $p.innerHTML = (Math.ceil(num) - num) > (num - Math.floor(num)) ? Math.floor(num) : Math.ceil(num); 
+            }            
+        }
+
+        function selectMax() {
+            const {aValue, bValue} = getAllValue();
+            if(aValue) {
+                $p.innerHTML = Math.max(aValue, bValue);
+            }
+        }
+
+        function selectMin() {
+            const {aValue, bValue} = getAllValue();
+            if(aValue) {
+                $p.innerHTML = Math.min(aValue, bValue);
+            }            
+        }
+    </script>
+</body>
+</html>

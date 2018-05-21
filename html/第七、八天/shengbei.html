@@ -5,42 +5,47 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-        .container, .left, .middle, .right {
-            height: 500px;
-        }
-        .container {
-            width: 100%;
-        }
-        .middle{
-            padding: 0 200px;
+
+        .column {
+            padding-top: 1em;
+            text-align: justify;
             position: relative;
+            float: left;
+            min-height: 200px;
         }
-        .left {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 200px;
-            background-color: blue;
+        #right {
+            background: #F66;
+            width: 130px;
+            padding: 0 10px;
+            margin-right: -100%;
         }
-        .right {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 200px;
-            background-color: blue;
+        #left {
+            width: 180px;
+            padding: 0 10px;
+            right: 240px;
+            margin-left: -100%;
+            background: #66F;
+        }
+        #center {
+            padding: 0 20px;
+            width: 100%;
+            background: #DDD;
+        }
+
+        body {
+            margin: 0;
+            padding-left: 200px;
+            padding-right: 190px;
+            min-width: 240px;
         }
         
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="middle">middle</div>
-        <div class="left"></div>
-        <div class="right"></div>
+        <div id="center" class="column">middle</div>
+        <div id="left" class="column"></div>
+        <div id="right" class="column"></div>
     </div>
 </body>
 </html>

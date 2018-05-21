@@ -62,36 +62,68 @@
 
         // 假设id和name均不会重复，根据输入name找到对应的id
         function findIdByName(name) {
-            let node = arguments[1];
-            if(node.name !== name) {
-                if(node.left) return findIdByName(name, node.left)
-                if(node.right) return findIdByName(name, node.right)
-            } else {
-                return node.id
+            let find = function(node) {
+                if(!node) return
+
+                if(node.name === name) {
+                    return node.id;
+                } else {
+                    return find(node.left) || find(node.right);
+                }
             }
-            return null;
+
+            return find(tree);
         }
 
         // 假设id和name均不会重复，根据输入id找到对应的name
         function findNameById(id) {
+            let find = function(node) {
+                if(!node) return
 
+                if(node.id === id) {
+                    return node.name;
+                } else {
+                    return find(node.left) || find(node.right);
+                }
+            }
+
+            return find(tree);
         }
 
         // 把这个对象中所有的名字以“前序遍历”的方式全部输出到console中
         function getListWithDLR() {
+            let find = (node) => {
+                console.log(node.name)
+                if(node.left) find(node.left)
+                if(node.right) find(node.right)
+            }
+
+            find(tree);
         }
 
         // 把这个对象中所有的名字以“中序遍历”的方式全部输出到console中
         function getListWithLDR() {
+            let find = (node) => {
+                if(node.left) find(node.left)
+                console.log(node.name)
+                if(node.right) find(node.right)
+            }
 
+            find(tree);
         }
 
         // 把这个对象中所有的名字以“后序遍历”的方式全部输出到console中
         function getListWithLRD() {
+            let find = (node) => {
+                if(node.left) find(node.left)
+                if(node.right) find(node.right)
+                console.log(node.name)
+            }
 
+            find(tree);
         }
 
-        console.log(findIdByName("Annie", tree))
+        console.log(findNameById(12))
     </script>
 </body>
 </html>

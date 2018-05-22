@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Array</title>
+</head>
+<body>
+    <input id="queue-input" type="text">
+    <p id="queue-cont">队列内容：apple-&gt;pear</p>    
+    <button id="in-btn">入队</button>
+    <button id="out-btn">出队</button>
+    <button id="front-btn">打印队头元素内容</button>
+    <button id="empty-btn">判断队列是否为空</button>
+
+    <script>
+        const $inBtn = document.getElementById("in-btn");
+        const $outBtn = document.getElementById("out-btn");
+        const $frontBtn = document.getElementById("front-btn");
+        const $emptyBtn = document.getElementById("empty-btn");
+        const $p = document.getElementById("queue-cont");
+        let inputValue,
+            queue = ["apple", "pear"];
+        
+        // 在冒泡阶段触发事件，则在按钮事件触发后再触发此事件
+        window.addEventListener("click", () => {
+            $p.innerHTML = "队列内容：" + queue.join("->");
+        }, false)
+
+        $inBtn.onclick = function() {
+            const inputValue = document.getElementById("queue-input").value;
+            queue.unshift(inputValue);
+        }
+
+        $outBtn.onclick = function() {
+            queue.pop();
+        }
+
+        $frontBtn.onclick = function(i) {
+            console.log(queue[queue.length-1]);
+        }
+
+        $emptyBtn.onclick = function() {
+            if(!queue.length) {
+                console.log("队列为空")
+            } else {
+                console.log("队列不为空")
+            }
+        }
+
+    </script>
+
+</body>
+</html>

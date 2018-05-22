@@ -38,6 +38,7 @@
         const $p = document.getElementById("result");
         let $selectedInput = null;
         
+        // 在点击事件的捕获阶段触发事件，则可以在触发绑定在button的事件之前获取到被选中的值
         window.addEventListener("click", (e) => {
             if (e.target.nodeName === "BUTTON") {
                 const $selected = document.querySelector("input[type='radio']:checked");
@@ -125,22 +126,24 @@
 
         // 去除头尾字符串，非正则
         function diyTrim(str) {
-            let result = "",
+            let halfAngle = ' ',
+                fullAngle = '　',
                 start = -1,
                 end = str.length;
 
             for(let i = 0; i < str.length; i++) {
-                if(str[i] != " " && str[i] != '　') {
+                if(str[i] != halfAngle && str[i] != fullAngle) {
+
+                    // 记录非空字符的开始，记录过一次就不再记录了
                     if(start < 0) {
                         start = i;
                     }
-
+                    // 记录非空字符的最后
                     end = i + 1;                    
                 } 
             }
 
-            result = str.slice(start, end);
-            return result
+            return str.slice(start, end);
         }
 
         // 测试用例
@@ -161,6 +164,7 @@
                 start = null;
 
             for(let i = 0; i < str.length; i++) {
+                // 与上一次的记录值不等的时候才记录
                 if(str[i] !== start) {
                     start = str[i];
                     result += start;

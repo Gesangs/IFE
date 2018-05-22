@@ -114,12 +114,11 @@
         // }
         function searchParent(obj, key) {
             let parent = null;
-            // 对象的属性均为字符串
-            key = key.toString();
             
             // 遍历查找key对象，若没有需手动创建
             for(k in obj) {
-                if(k === key) {
+                // 对象中的属性均为字符串类型，这里是为了让字符1和数字1相等，要用全等需手动转换
+                if(k == key) {
                     parent = obj[k];
                     if(!parent) parent = {};
                     break;

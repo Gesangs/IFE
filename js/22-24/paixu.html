@@ -112,7 +112,49 @@
         //     ……
 
         // }
-        
+        function searchParent(obj, key) {
+            let parent = null;
+            // 对象的属性均为字符串
+            key = key.toString();
+            
+            // 遍历查找key对象，若没有需手动创建
+            for(k in obj) {
+                if(k === key) {
+                    parent = obj[k];
+                    if(!parent) parent = {};
+                    break;
+                } else if(obj[k].subMenu) {
+                    parent = searchParent(obj[k].subMenu, key);
+                    if(parent) break;
+                }
+            }
+
+            return parent;
+        }
+
+          function menuObject(arr) {
+              let obj = {};
+              arr.map((item) => {
+                  let key = item[0];
+                  let parentKey = item[2];
+                  let parent = searchParent(obj, parentKey);
+
+                  if(parent) {
+                      if(!parent.subMenu) parent.subMenu = {};
+                      parent.subMenu[key] = {
+                          "name": item[1]
+                      }
+                  } else {
+                      obj[key] = {
+                          "name": item[1]
+                      }
+                  }
+              })
+
+              return obj;
+          } 
+
+          console.log(menuObject(menuArr))
 
     </script>
 </body>

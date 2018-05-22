@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <select id="year-select">
+        <option value="1990">1990</option>
+    </select>
+    年
+    <select id="month-select">
+        <option value="1">1</option>
+    </select>
+    月
+    <select id="day-select">
+        <option value="1">1</option>
+    </select>
+    日
+    <select id="hour-select">
+        <option value="0">0</option>
+    </select>
+    时
+    <select id="minutes-select">
+        <option value="0">0</option>
+    </select>
+    分
+    <select id="second-select">
+        <option value="0">0</option>
+    </select>
+    秒
+    <p id="result-wrapper">
+        <span id="selectTime"></span>
+        <span id="Time"></span>
+    </p>
+
+    <script>
+        // 偷偷懒
+        const $year = document.getElementById("year-select");
+        const $months = document.getElementById("month-select");
+        const $day = document.getElementById("day-select");
+        const $hour = document.getElementById("hour-select");
+        const $minutes = document.getElementById("minutes-select");
+        const $second = document.getElementById("second-select");
+
+        function insertOption(select, start, end) {
+            const $document = document.createDocumentFragment();
+            for (let i = start; i <= end; i++) {
+                const $option = document.createElement("option");
+                $option.value = i;
+                $option.innerHTML = i;
+                $document.append($option)
+            }
+            select.append($document);
+        }
+        insertOption($year, 1991, 2018)
+        insertOption($months, 2, 12)
+        insertOption($day, 2, 31)
+        insertOption($hour, 1, 23)
+        insertOption($minutes, 1, 59)
+        insertOption($second, 1, 59)
+        
+        
+        const $selectTime = document.getElementById("selectTime");
+        const $Time = document.getElementById("Time");
+        const weeks = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+        let selectDate = null;
+        let time = [];
+        
+        // 监听change事件
+        window.addEventListener("change", clickEvent, true)
+        
+        function clickEvent(e) {
+            selectDate = new Date(`${$year.value}-${$months.value}-${$day.value} ${$hour.value}:${$minutes.value}:${$second.value}`);
+            $selectTime.innerHTML = `现在距离 ${$year.value}年${$months.value}月${$day.value}日${getSelectDay()} ${$hour.value}:${$minutes.value}:${$second.value}`;
+        }
+        
+        // 初始化
+        clickEvent()
+        
+        // 星期的转化
+        function getSelectDay() {
+            return weeks[selectDate.getDay()];
+        }
+        
+        // 计算剩余时间
+        function calculateTime() {
+            // 转换成秒数来计算
+            let nowTime = new Date().getTime();
+            let leftTime = selectDate.getTime() - nowTime;
+            $Time.innerHTML = leftTime > 0 ? "还有" : "已经过去";
+            leftTime = Math.abs(leftTime)/1000;
+            
+            // 先计算天数
+            let day = parseInt(leftTime/60/24/60); 
+            leftTime = leftTime - day*24*60*60;
+            let hour = parseInt(leftTime/3600)
+            let minutes = parseInt((leftTime%3600)/60); 
+            let second = parseInt((leftTime%3600)%60);
+
+            $Time.innerHTML += `${day}天${hour}时${minutes}分${second}秒`
+        }
+        
+        // 初始化
+        calculateTime()
+
+        let timer = setInterval(() => {
+            calculateTime()
+        })
+    </script>
+</body>
+
+</html>

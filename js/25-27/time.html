@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Time</title>
+</head>
+<body>
+    <div id="time1"></div>
+    <div id="time2"></div>
+    <script>
+        // 2008年10月10日星期一 12:12:12
+        let year,months,day,week,hour,minutes,second,pmOrAm,
+        weeks1 = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"],
+        weeks2 = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        $div1 = document.getElementById("time1"),
+        $div2 = document.getElementById("time2");
+
+        function swapNumber(num) {
+            if(num.toString().length < 2) {
+                return "0" + num;
+            } else {
+                return num
+            }
+        }
+
+        function checkPmOrAm() {
+            return parseInt(hour) < 12 ? "PM" : "AM";
+        }
+        
+        function displayTime1() {
+            $div1.innerHTML = `${year}年${months}月${day}日${weeks1[week]} ${hour}:${minutes}:${second}`; 
+        }
+
+        function displayTime2() {
+            $div2.innerHTML = `${year}-${months}-${day} ${weeks2[week]} ${hour}:${minutes}:${second} ${checkPmOrAm()}`;  
+        }
+    
+        function getTime() {
+            let date = new Date();
+
+            year = date.getFullYear();
+            months = swapNumber(date.getMonth() + 1);
+            day = swapNumber(date.getDate());
+            week = date.getDay();
+
+            hour = swapNumber(date.getHours());
+            minutes = swapNumber(date.getMinutes());
+            second = swapNumber(date.getSeconds());
+
+            displayTime1();
+            displayTime2();
+        }
+        getTime(); 
+        let timer = setInterval(() => {
+            getTime();
+        },1000)
+
+    </script>
+</body>
+</html>

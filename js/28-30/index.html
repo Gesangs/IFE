@@ -28,6 +28,7 @@
             height: 30px;
             line-height: 30px;
             padding-left: 10px;
+            overflow: hidden;
         } 
         #email-sug-wrapper li:hover {
             background-color: bisque;
@@ -47,22 +48,29 @@
         let postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
         const $input = document.getElementById("email-input");
         const $list = document.getElementById("email-sug-wrapper");
-
-        // 方向键所选中的index
-        let nowSelectTipIndex = 0;
+        let nowSelectTipIndex = 0; // 方向键所选中的index
         
+        // 一进入页面就将焦点放在输入框中
         $input.focus()
-        $input.onkeyup = function(e) {
+          
+        // 失去焦点隐藏提示框
+        $input.onblur = function() {
+            hideTip()
+        }
+        
+        // 输入事件
+        $input.oninput = function(e) {
             // 获取用户输入，生成提示框中的提示内容，将提示内容添加到email-sug-wrapper中
-            addTipToList()
+            drawTipList()
 
             // 控制email-sug-wrapper的显示/隐藏状态
             toggleTip()
-
-            // 方向键控制
-            upOrDown(e)
         }
-
+        
+        //  方向键事件
+        $input.onkeyup = upOrDown;
+        
+        // 点击提示框事件
         $list.onclick = function(e) {
             $input.value = htmlDecode(e.target.innerHTML);
             hideTip()
@@ -73,32 +81,30 @@
         function upOrDown(e) {
             let len = $list.children.length - 1;
             switch(e.keyCode) {
-                case 38: 
-                    if(nowSelectTipIndex == 0) {
-                        nowSelectTipIndex = len;
-                    } else {
-                        nowSelectTipIndex--;
-                    }
+                case 38: // up
+                    nowSelectTipIndex === 0 ? nowSelectTipIndex = len : nowSelectTipIndex--;
                 break;
-                case 40:
-                    if(nowSelectTipIndex == len) {
-                        nowSelectTipIndex = 0;
-                    } else {
-                        nowSelectTipIndex++;
-                    }
+
+                case 40: // down
+                    nowSelectTipIndex == len ? nowSelectTipIndex = 0 : nowSelectTipIndex++;
                 break;
-                case 27:
+
+                case 27: // esc
                     $input.value = "";
                     hideTip()
                 break;
-                case 13:
+
+                case 13: // enter
                     hideTip()
                     $input.value = htmlDecode($list.children[nowSelectTipIndex].innerHTML); 
                 break;
+
                 default:
                     nowSelectTipIndex = 0;        
             }
-            addTipToList()
+
+            // 重绘提示框
+            drawTipList()
         }
         
         // html转码
@@ -126,11 +132,7 @@
         
         // 生成提示框内容的数组模版
         function createTipListArr(text) {
-            let arr = postfixList.filter((item) => {
-                if(item.includes(text)) {
-                    return true;
-                }
-            })
+            let arr = postfixList.filter((item) => item.includes(text))
             if(arr.length === 0) arr = postfixList;
             return arr;
         }
@@ -148,9 +150,7 @@
             const $document = document.createDocumentFragment();
             createTipListArr(eValue).map((item, index) => {
                 const $li = document.createElement("li");
-                if(index === nowSelectTipIndex) {
-                    $li.classList = "active";
-                }
+                $li.classList = index === nowSelectTipIndex ? "active" : "";
                 $li.innerHTML = sValue + "@" + item;
                 $document.append($li);
             })
@@ -158,20 +158,14 @@
             return $document;
         }
 
-        // 获取生成提示框中的提示内容将内容添加到email-sug-wrapper中
-        function addTipToList() {
-            while ($list.hasChildNodes()) {
-                $list.removeChild($list.firstChild)
-            }
+        // 获取生成提示框中的提示内容将内容添加到email-sug-wrapper中，先清空后插入
+        function drawTipList() {
+            $list.innerHTML = "";
             $list.append(createTipList());
         }
 
         function toggleTip() {
-            if (!getInputValue()) {
-                hideTip()
-            } else {
-                showTip()
-            }
+            getInputValue() ? showTip() : hideTip();
         }
 
         // 做具体隐藏提示框的操作

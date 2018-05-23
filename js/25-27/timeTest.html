@@ -89,9 +89,7 @@
             let selectedDay = $day.value;
 
             // 清空所有option
-            while ($day.hasChildNodes()) {
-                $day.removeChild($day.firstChild)
-            }
+            $day.innerHTML = "";
 
             // 根据平、闰年设置2月份天数
             days[2] = checkYear()

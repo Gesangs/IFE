@@ -61,12 +61,12 @@
             }
             select.append($document)
         }
-        
+
 
         // 将select的变化反映到dom中
         function changeEvent(e) {
             // 如果修改的是月份，同时修改天数范围
-            if(e && e.target.id === "month-select") {
+            if (e && e.target.id === "month-select") {
                 changeMonths()
             }
             selectDate = new Date(`${$year.value}-${$months.value}-${$day.value} ${$hour.value}:${$minutes.value}:${$second.value}`);
@@ -77,13 +77,13 @@
         // 如果是闰年返回ture
         function checkYear() {
             const year = $year.value;
-            if((((year % 4) == 0) && (year % 100) != 0) || (year % 400 == 0)) {
+            if ((((year % 4) == 0) && (year % 100) != 0) || (year % 400 == 0)) {
                 return true;
             } else {
                 return false;
             }
         }
-        
+
 
         // 修改天数范围
         function changeMonths() {
@@ -91,11 +91,11 @@
             let selectedDay = $day.value;
 
             // 清空所有option
-            while($day.hasChildNodes()) {
+            while ($day.hasChildNodes()) {
                 $day.removeChild($day.firstChild)
             }
             // 根据平、闰年设置2月份天数
-            if(checkYear()) {
+            if (checkYear()) {
                 days[2] = "29"
             } else {
                 days[2] = "28"
@@ -104,28 +104,28 @@
             insertOption($day, 1, days[$months.value])
 
             // 设置为修改前的日期，如果超出了范围，就设置为当前月的最后一天
-            if($day.children.length < selectedDay) {
+            if ($day.children.length < selectedDay) {
                 $day.value = $day.children.length;
             } else {
                 $day.value = selectedDay;
             }
         }
-        
-        
+
+
         // 计算剩余时间
         function calculateTime() {
             // 转换成秒数来计算
             let nowTime = new Date().getTime();
             let leftTime = selectDate.getTime() - nowTime;
             $Time.innerHTML = leftTime > 0 ? "还有" : "已经过去";
-            leftTime = Math.abs(leftTime)/1000;
-            
+            leftTime = Math.abs(leftTime) / 1000;
+
             // 先计算天数
-            let day = parseInt(leftTime/60/24/60); 
-            leftTime = leftTime - day*24*60*60;
-            let hour = parseInt(leftTime/3600)
-            let minutes = parseInt((leftTime%3600)/60); 
-            let second = parseInt((leftTime%3600)%60);
+            let day = parseInt(leftTime / 60 / 24 / 60);
+            leftTime = leftTime - day * 24 * 60 * 60;
+            let hour = parseInt(leftTime / 3600)
+            let minutes = parseInt((leftTime % 3600) / 60);
+            let second = parseInt((leftTime % 3600) % 60);
 
             $Time.innerHTML += `${day}天${hour}时${minutes}分${second}秒`
         }
@@ -133,19 +133,19 @@
         // 初始化
         function init() {
             // 初始化option选择项，实则偷懒，手动太麻烦了
-            insertOption($year, 1991, 2018)
+            insertOption($year, 1991, 2038)
             insertOption($months, 2, 12)
             insertOption($day, 2, 31)
             insertOption($hour, 1, 23)
             insertOption($minutes, 1, 59)
-            insertOption($second, 1, 59)    
+            insertOption($second, 1, 59)
 
             // 监听change事件
             window.addEventListener("change", changeEvent, false)
 
             changeEvent()
             calculateTime()
-            
+
             // 启动计时器
             let timer = setInterval(() => {
                 calculateTime()

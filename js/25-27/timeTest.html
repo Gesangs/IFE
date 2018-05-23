@@ -44,13 +44,14 @@
         const $hour = document.getElementById("hour-select");
         const $minutes = document.getElementById("minutes-select");
         const $second = document.getElementById("second-select");
+
         const $selectTime = document.getElementById("selectTime");
         const $Time = document.getElementById("Time");
         const weeks = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
         const days = [null, "31", null, "31", "30", "31", "30", "31", "31", "30", "31", "30", "31"];
         let selectDate = null;
 
-
+        // 批量插入option
         function insertOption(select, start, end) {
             const $document = document.createDocumentFragment();
             for (let i = start; i <= end; i++) {
@@ -62,28 +63,25 @@
             select.append($document)
         }
 
-
-        // 将select的变化反映到dom中
+        // 监听并记录selcel的change事件
         function changeEvent(e) {
             // 如果修改的是月份，同时修改天数范围
             if (e && e.target.id === "month-select") {
                 changeMonths()
             }
+
             selectDate = new Date(`${$year.value}-${$months.value}-${$day.value} ${$hour.value}:${$minutes.value}:${$second.value}`);
             $selectTime.innerHTML = `现在距离 ${$year.value}年${$months.value}月${$day.value}日${weeks[selectDate.getDay()]} ${$hour.value}:${$minutes.value}:${$second.value}`;
+
+            // 立即刷新
+            calculateTime()
         }
 
-
-        // 如果是闰年返回ture
+        // 闰年2月29
         function checkYear() {
             const year = $year.value;
-            if ((((year % 4) == 0) && (year % 100) != 0) || (year % 400 == 0)) {
-                return true;
-            } else {
-                return false;
-            }
+            return ((((year % 4) == 0) && (year % 100) != 0) || (year % 400 == 0)) ? "29" : "28";
         }
-
 
         // 修改天数范围
         function changeMonths() {
@@ -94,23 +92,16 @@
             while ($day.hasChildNodes()) {
                 $day.removeChild($day.firstChild)
             }
+
             // 根据平、闰年设置2月份天数
-            if (checkYear()) {
-                days[2] = "29"
-            } else {
-                days[2] = "28"
-            }
+            days[2] = checkYear()
+
             // 根据已选的月份插入对应天数的option
             insertOption($day, 1, days[$months.value])
 
             // 设置为修改前的日期，如果超出了范围，就设置为当前月的最后一天
-            if ($day.children.length < selectedDay) {
-                $day.value = $day.children.length;
-            } else {
-                $day.value = selectedDay;
-            }
+            $day.value = $day.children.length < selectedDay ? $day.children.length : selectedDay;
         }
-
 
         // 计算剩余时间
         function calculateTime() {
@@ -139,12 +130,11 @@
             insertOption($hour, 1, 23)
             insertOption($minutes, 1, 59)
             insertOption($second, 1, 59)
-
-            // 监听change事件
-            window.addEventListener("change", changeEvent, false)
-
             changeEvent()
             calculateTime()
+
+            // 绑定change事件
+            window.addEventListener("change", changeEvent, false)
 
             // 启动计时器
             let timer = setInterval(() => {
@@ -153,7 +143,6 @@
         }
 
         init()
-
     </script>
 </body>
 

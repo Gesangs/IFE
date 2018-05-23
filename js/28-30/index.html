@@ -54,10 +54,10 @@
         $input.focus()
           
         // 失去焦点隐藏提示框
-        $input.onblur = function() {
-            hideTip()
-        }
-        
+        // $input.onblur = function() {
+        //     hideTip()
+        // }
+
         // 输入事件
         $input.oninput = function(e) {
             // 获取用户输入，生成提示框中的提示内容，将提示内容添加到email-sug-wrapper中

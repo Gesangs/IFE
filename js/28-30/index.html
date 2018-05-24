@@ -47,16 +47,18 @@
     <script>
         let postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
         const $input = document.getElementById("email-input");
-        const $list = document.getElementById("email-sug-wrapper");
+        const $list = document.getElementById("email-sug-wrapper"); 
         let nowSelectTipIndex = 0; // 方向键所选中的index
         
         // 一进入页面就将焦点放在输入框中
         $input.focus()
           
-        // 失去焦点隐藏提示框
-        // $input.onblur = function() {
-        //     hideTip()
-        // }
+        // 点击其他地方隐藏提示框
+        window.onclick = function(e) {
+            if(e.target.id !== "email-input" || e.target.id !== "email-sug-wrapper") {
+                hideTip()
+            }
+        }
 
         // 输入事件
         $input.oninput = function(e) {
@@ -67,7 +69,7 @@
             toggleTip()
         }
         
-        //  方向键事件
+        //  方向键选择提示框选项
         $input.onkeyup = upOrDown;
         
         // 点击提示框事件
@@ -83,10 +85,12 @@
             switch(e.keyCode) {
                 case 38: // up
                     nowSelectTipIndex === 0 ? nowSelectTipIndex = len : nowSelectTipIndex--;
+                    drawTipList()                  
                 break;
 
                 case 40: // down
                     nowSelectTipIndex == len ? nowSelectTipIndex = 0 : nowSelectTipIndex++;
+                    drawTipList()
                 break;
 
                 case 27: // esc
@@ -95,16 +99,13 @@
                 break;
 
                 case 13: // enter
-                    hideTip()
                     $input.value = htmlDecode($list.children[nowSelectTipIndex].innerHTML); 
+                    hideTip()
                 break;
 
                 default:
                     nowSelectTipIndex = 0;        
             }
-
-            // 重绘提示框
-            drawTipList()
         }
         
         // html转码
@@ -127,7 +128,7 @@
 
         // 获取输入框的内容
         function getInputValue() {
-            return htmlEncode($input.value).replace(/\s/g, ''); 
+            return htmlEncode($input.value.replace(/\s/g, '')); 
         }
         
         // 生成提示框内容的数组模版

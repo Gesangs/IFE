@@ -40,7 +40,7 @@
 </head>
 <body>
     <div class="wrapper">
-        <input id="email-input" type="text">
+        <input id="email-input" type="text" placeholder="请输入邮箱">
         <ul id="email-sug-wrapper" class="email-sug"></ul>
     </div>
 
@@ -54,33 +54,66 @@
         $input.focus()
           
         // 点击其他地方隐藏提示框
-        window.onclick = function(e) {
+        window.addEventListener("click", (e) => {
             if(e.target.id !== "email-input" || e.target.id !== "email-sug-wrapper") {
                 hideTip()
             }
-        }
+        }, false)
 
         // 输入事件
         $input.oninput = function(e) {
             // 获取用户输入，生成提示框中的提示内容，将提示内容添加到email-sug-wrapper中
             drawTipList()
-
+            
             // 控制email-sug-wrapper的显示/隐藏状态
             toggleTip()
         }
         
-        //  方向键选择提示框选项
-        $input.onkeyup = upOrDown;
-        
         // 点击提示框事件
         $list.onclick = function(e) {
             $input.value = htmlDecode(e.target.innerHTML);
-            hideTip()
             $input.focus()
+            hideTip()
+        }
+
+        // 获取生成提示框中的提示内容将内容添加到email-sug-wrapper中，先清空后插入
+        function drawTipList() {
+            $list.innerHTML = "";
+            $list.append(createTipList());
+        }
+        
+        // 创建提示框内容
+        function createTipList() {
+            let sValue = getInputValue(),
+                eValue;
+            if(sValue.includes("@")) {
+                eValue = sValue.split("@")[1];
+                sValue = sValue.split("@")[0];
+            }
+            
+            // 生成符合要求的数组模版
+            let postfixListArr = createTipListArr(eValue);
+
+            // 然后根据模版数组生成提示框内的DOM结构
+            const $document = document.createDocumentFragment();
+            postfixListArr.map((item, index) => {
+                const $li = document.createElement("li");
+                $li.classList = index === nowSelectTipIndex ? "active" : "";
+                $li.innerHTML = sValue + "@" + item;
+                $document.append($li);
+            })
+            return $document;
+        }
+                
+        // 生成提示框内容的数组模版
+        function createTipListArr(text) {
+            let arr = postfixList.filter((item) => item.includes(text))
+            if(arr.length === 0) arr = postfixList;
+            return arr;
         }
 
         // 方向键操作逻辑
-        function upOrDown(e) {
+        $input.onkeyup = function (e) {
             let len = $list.children.length - 1;
             switch(e.keyCode) {
                 case 38: // up
@@ -104,10 +137,30 @@
                 break;
 
                 default:
-                    nowSelectTipIndex = 0;        
+                    nowSelectTipIndex = 0;     
+                    drawTipList()   
             }
         }
-        
+
+        // 获取输入框的内容
+        function getInputValue() {
+            return htmlEncode($input.value.replace(/\s/g, '')); 
+        }
+
+        function toggleTip() {
+            getInputValue() ? showTip() : hideTip();
+        }
+
+        // 做具体隐藏提示框的操作
+        function hideTip() {
+            $list.style.display = "none";
+        }
+
+        // 做具体显示提示框的操作
+        function showTip() {
+            $list.style.display = "block";
+        }
+
         // html转码
         function htmlEncode(html) {
             var temp = document.createElement ("div");
@@ -124,59 +177,6 @@
             var output = temp.innerText || temp.textContent;
             temp = null;
             return output;
-        }
-
-        // 获取输入框的内容
-        function getInputValue() {
-            return htmlEncode($input.value.replace(/\s/g, '')); 
-        }
-        
-        // 生成提示框内容的数组模版
-        function createTipListArr(text) {
-            let arr = postfixList.filter((item) => item.includes(text))
-            if(arr.length === 0) arr = postfixList;
-            return arr;
-        }
-        
-        // 创建提示框内容
-        function createTipList() {
-            let sValue = getInputValue();
-            let eValue;
-            if(sValue.includes("@")) {
-                eValue = sValue.split("@")[1];
-                sValue = sValue.split("@")[0];
-            }
-            
-            // 根据模版数组生成提示框DOM结构
-            const $document = document.createDocumentFragment();
-            createTipListArr(eValue).map((item, index) => {
-                const $li = document.createElement("li");
-                $li.classList = index === nowSelectTipIndex ? "active" : "";
-                $li.innerHTML = sValue + "@" + item;
-                $document.append($li);
-            })
-
-            return $document;
-        }
-
-        // 获取生成提示框中的提示内容将内容添加到email-sug-wrapper中，先清空后插入
-        function drawTipList() {
-            $list.innerHTML = "";
-            $list.append(createTipList());
-        }
-
-        function toggleTip() {
-            getInputValue() ? showTip() : hideTip();
-        }
-
-        // 做具体隐藏提示框的操作
-        function hideTip() {
-            $list.style.display = "none";
-        }
-
-        // 做具体显示提示框的操作
-        function showTip() {
-            $list.style.display = "block";
         }
     </script>
 </body>

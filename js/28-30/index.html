@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -10,13 +11,16 @@
             margin: 0;
             padding: 0;
         }
+
         .wrapper {
             margin: 50px;
         }
+
         #email-input {
             width: 200px;
             height: 30px;
         }
+
         #email-sug-wrapper {
             list-style: none;
             width: 200px;
@@ -24,20 +28,24 @@
             border-top: none;
             display: none;
         }
+
         #email-sug-wrapper li {
             height: 30px;
             line-height: 30px;
             padding-left: 10px;
             overflow: hidden;
-        } 
+        }
+
         #email-sug-wrapper li:hover {
             background-color: bisque;
         }
+
         .active {
             background-color: burlywood;
         }
     </style>
 </head>
+
 <body>
     <div class="wrapper">
         <input id="email-input" type="text" placeholder="请输入邮箱">
@@ -47,30 +55,30 @@
     <script>
         let postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
         const $input = document.getElementById("email-input");
-        const $list = document.getElementById("email-sug-wrapper"); 
+        const $list = document.getElementById("email-sug-wrapper");
         let nowSelectTipIndex = 0; // 方向键所选中的index
-        
+
         // 一进入页面就将焦点放在输入框中
         $input.focus()
-          
+
         // 点击其他地方隐藏提示框
         window.addEventListener("click", (e) => {
-            if(e.target.id !== "email-input" || e.target.id !== "email-sug-wrapper") {
+            if (e.target.id !== "email-input" || e.target.id !== "email-sug-wrapper") {
                 hideTip()
             }
         }, false)
 
         // 输入事件
-        $input.oninput = function(e) {
+        $input.oninput = function (e) {
             // 获取用户输入，生成提示框中的提示内容，将提示内容添加到email-sug-wrapper中
             drawTipList()
-            
+
             // 控制email-sug-wrapper的显示/隐藏状态
             toggleTip()
         }
-        
+
         // 点击提示框事件
-        $list.onclick = function(e) {
+        $list.onclick = function (e) {
             $input.value = htmlDecode(e.target.innerHTML);
             $input.focus()
             hideTip()
@@ -81,16 +89,16 @@
             $list.innerHTML = "";
             $list.append(createTipList());
         }
-        
+
         // 创建提示框内容
         function createTipList() {
             let sValue = getInputValue(),
                 eValue;
-            if(sValue.includes("@")) {
+            if (sValue.includes("@")) {
                 eValue = sValue.split("@")[1];
                 sValue = sValue.split("@")[0];
             }
-            
+
             // 生成符合要求的数组模版
             let postfixListArr = createTipListArr(eValue);
 
@@ -104,47 +112,47 @@
             })
             return $document;
         }
-                
+
         // 生成提示框内容的数组模版
         function createTipListArr(text) {
             let arr = postfixList.filter((item) => item.includes(text))
-            if(arr.length === 0) arr = postfixList;
+            if (arr.length === 0) arr = postfixList;
             return arr;
         }
 
         // 方向键操作逻辑
         $input.onkeyup = function (e) {
             let len = $list.children.length - 1;
-            switch(e.keyCode) {
+            switch (e.keyCode) {
                 case 38: // up
                     nowSelectTipIndex === 0 ? nowSelectTipIndex = len : nowSelectTipIndex--;
-                    drawTipList()                  
-                break;
+                    drawTipList()
+                    break;
 
                 case 40: // down
                     nowSelectTipIndex == len ? nowSelectTipIndex = 0 : nowSelectTipIndex++;
                     drawTipList()
-                break;
+                    break;
 
                 case 27: // esc
                     $input.value = "";
                     hideTip()
-                break;
+                    break;
 
                 case 13: // enter
-                    $input.value = htmlDecode($list.children[nowSelectTipIndex].innerHTML); 
+                    $input.value = htmlDecode($list.children[nowSelectTipIndex].innerHTML);
                     hideTip()
-                break;
+                    break;
 
                 default:
-                    nowSelectTipIndex = 0;     
-                    drawTipList()   
+                    nowSelectTipIndex = 0;
+                    drawTipList()
             }
         }
 
         // 获取输入框的内容
         function getInputValue() {
-            return htmlEncode($input.value.replace(/\s/g, '')); 
+            return htmlEncode($input.value.replace(/\s/g, ''));
         }
 
         function toggleTip() {
@@ -163,13 +171,13 @@
 
         // html转码
         function htmlEncode(html) {
-            var temp = document.createElement ("div");
-            (temp.textContent != undefined ) ? (temp.textContent = html) : (temp.innerText = html);
+            var temp = document.createElement("div");
+            (temp.textContent != undefined) ? (temp.textContent = html) : (temp.innerText = html);
             var output = temp.innerHTML;
             temp = null;
             return output;
         }
-        
+
         // html解码
         function htmlDecode(text) {
             var temp = document.createElement("div");
@@ -180,4 +188,5 @@
         }
     </script>
 </body>
+
 </html>

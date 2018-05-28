@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>table</title>
+    <style>
+        th, td {
+            text-align: center;
+            width: 70px;
+        }
+    </style>
+</head>
+<body>
+    <select name="region" id="region-select">
+        <option value="华东">华东</option>
+        <option value="华南">华南</option>
+        <option value="华北">华北</option>
+    </select>
+
+    <select name="product" id="product-select">
+        <option value="手机">手机</option>
+        <option value="智能音箱">智能音箱</option>
+        <option value="笔记本">笔记本</option>
+    </select>
+
+    <div id="table-wrapper">
+
+    </div>
+    
+    <script src="./ife31data.js"></script>
+    <script>
+        window.onload = function() {
+            let $selects = document.getElementsByTagName('select');
+            let $div = document.getElementById("table-wrapper");
+            drawTable()
+
+            window.addEventListener("change", () => {
+                $div.innerHTML = "";
+                drawTable()
+            },true)
+
+            function filterData(data, name, value) {
+                return data.filter((item) => {
+                    if(item[name] === value) {
+                        return true;
+                    }
+                })
+            }
+
+            function getSelectData() {
+                let data = sourceData;
+                [...$selects].map((item) => {
+                    data = filterData(data, item.name, item.value);
+                })
+                return data;
+            }
+            
+            // 创建表头
+            function createTh() {
+                let $tr = document.createElement("tr");
+                let $th = document.createElement("th");
+                    $th.innerHTML = "商品";
+                    $tr.appendChild($th);
+
+                $th = document.createElement("th");
+                $th.innerHTML = "地区";
+                $tr.appendChild($th);
+
+                for(let i = 1; i <= 12; i++) {
+                    $th = document.createElement("th");
+                    $th.innerHTML = i + "月";
+                    $tr.appendChild($th);
+                }               
+                return $tr;
+            }
+            
+            function createTd(data) {
+                let $tr = document.createElement("tr");
+                let $td = document.createElement("td");
+                    $td.innerHTML = data.product;
+                    $tr.appendChild($td);
+
+                $td = document.createElement("td");
+                $td.innerHTML = data.region;
+                $tr.appendChild($td);
+
+                for(let i = 0; i < 12; i++) {
+                    $td = document.createElement("td");
+                    $td.innerHTML = data.sale[i];
+                    $tr.appendChild($td);
+                }               
+                return $tr;
+            }
+
+            function drawTable() {
+                let data = getSelectData();
+                // 创建带有表头的空表格
+                let $table = document.createElement("table");
+                    $table.appendChild(createTh());
+                
+                data.map((item) => {
+                    $table.appendChild(createTd(item));
+                })
+                $div.appendChild($table);                                   
+            }
+        }
+    </script>
+</body>
+</html>

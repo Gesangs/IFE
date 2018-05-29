@@ -65,11 +65,7 @@
 
         // 监听并记录selcel的change事件
         function changeEvent(e) {
-            // 如果修改的是月份，同时修改天数范围
-            if (e && e.target.id === "month-select") {
-                changeMonths()
-            }
-
+            changeMonths()
             selectDate = new Date(`${$year.value}-${$months.value}-${$day.value} ${$hour.value}:${$minutes.value}:${$second.value}`);
             $selectTime.innerHTML = `现在距离 ${$year.value}年${$months.value}月${$day.value}日${weeks[selectDate.getDay()]} ${$hour.value}:${$minutes.value}:${$second.value}`;
 

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Table</title>
+    <style>
+        table  {
+            width: 100%;
+        }
+
+        td,th{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+        <div id="region-radio-wrapper"></div>
+        <div id="product-radio-wrapper"></div>
+    
+        <div id="table-wrapper"></div>
+
+    
+    <script src="./ife31data.js"></script>
+    <script src="./checkBox.js"></script>
+    <script src="./data.js"></script>
+    <script src="./table.js"></script>
+    <script>
+        // 生成选项
+        let product = new CheckBox({
+            name: "product",
+            arr: ["手机", "笔记本", "智能音箱"]
+        }).init()
+        let region = new CheckBox({
+            name: "region",
+            arr: ["华东", "华南", "华北"]
+        }).init()
+
+        function init() {
+            // 生成表格数据
+            let data = new Data({
+                product: product.getValue(),
+                region: region.getValue()
+            }).getValue()
+
+            // 按照数据绘制表格
+            let table = new Table({
+                data,
+                container: document.getElementById("table-wrapper")
+            }).createTable()
+        }
+        window.addEventListener("change", init, true)
+
+        init()
+    </script>
+</body>
+</html>

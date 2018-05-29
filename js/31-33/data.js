@@ -1,5 +1,6 @@
 class Data {
     constructor(data) {
+        this.sourceData = data.sourceData
         this.product = data.product
         this.region = data.region
         this.first = this.region.length == 1 && this.product.length != 1 ? "region" : "product";
@@ -9,7 +10,7 @@ class Data {
     }
 
     // 生成表内容
-    formatData() {
+    createTableData(sourceData) {
         let first = this[this.first];
         
         first.map((p) => {
@@ -40,8 +41,8 @@ class Data {
         this.result.unshift(mouths);
     }
 
-    getValue() {
-        this.formatData()
+    formatData() {
+        this.createTableData(this.sourceData)
         return this.result
     }
 }
@@ -51,10 +52,10 @@ let data = [
     ["product", "region", 1,2,3,4,5,6,7,8,9,10,11,12],
     [
         ["手机", "华北", 1,2,3,4,5,6,7,8,9,10,11,12],
-        ["华南", 1,2,3,4,5,6,7,8,9,10,11,12]
+                ["华南", 1,2,3,4,5,6,7,8,9,10,11,12]
     ],
     [
         ["笔记本", "华北", 1,2,3,4,5,6,7,8,9,10,11,12],
-        ["华南", 1,2,3,4,5,6,7,8,9,10,11,12]
+                 ["华南", 1,2,3,4,5,6,7,8,9,10,11,12]
     ]
 ]

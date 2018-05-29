@@ -39,9 +39,10 @@
         function init() {
             // 生成表格数据
             let data = new Data({
+                sourceData,
                 product: product.getValue(),
                 region: region.getValue()
-            }).getValue()
+            }).formatData()
 
             // 按照数据绘制表格
             let table = new Table({
@@ -49,6 +50,7 @@
                 container: document.getElementById("table-wrapper")
             }).createTable()
         }
+
         window.addEventListener("change", init, true)
 
         init()

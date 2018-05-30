@@ -4,7 +4,7 @@ let ctx = c.getContext("2d");
 let colorArr = [
     "#ff0000",
     "#f6941d",
-    "#ffff00",
+    "#61acfc",
     "#99cc33",
     "#219167",
     "#24998d",
@@ -32,6 +32,7 @@ function drawLine(data = []) {
         scale = (xLen - 20) / max;
 
     ctx.clearRect(0, 0, 1000, 500);
+
     // 绘制横轴及纵轴
     ctx.beginPath();
     ctx.moveTo(init, 10);
@@ -39,7 +40,7 @@ function drawLine(data = []) {
     ctx.lineTo(yLen + init, xLen);
     ctx.stroke()
 
-    // 绘制刻度
+    // 绘制轴线刻度
     max = getInt(max);
     let noun = max - max / 5;
     while (noun >= 0) {
@@ -79,7 +80,7 @@ function drawLine(data = []) {
             // 绘制月份，绘制一次就可以了
             if(index == 0) {
                 ctx.beginPath()
-                ctx.strokeText(`${d + 1}月`, x, xLen + 20)
+                ctx.strokeText(`${d + 1}月`, x - 5, xLen + 20)
                 ctx.closePath()
             }
             

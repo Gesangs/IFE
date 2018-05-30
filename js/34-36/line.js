@@ -28,14 +28,25 @@ function drawLine(data) {
     max = getInt(max);
         let noun = max - max/5;
         while(noun >= 0) {
+            // 刻度值
             ctx.beginPath()
             ctx.strokeText(noun, init - 30, xLen - noun*scale + 3)
             ctx.closePath()
 
+            // 刻度标记
             ctx.beginPath();
             ctx.moveTo(init-3, xLen - noun*scale);
             ctx.lineTo(init, xLen - noun*scale);
             ctx.stroke()
+
+            // 参考线
+            ctx.beginPath()
+            ctx.moveTo(init, xLen - noun*scale);
+            ctx.lineTo(yLen, xLen - noun*scale);
+            ctx.strokeStyle = "#e8e8e8";
+            ctx.stroke()
+            ctx.closePath()
+            ctx.strokeStyle = "#000000";
             
             noun -= max/5;
     }

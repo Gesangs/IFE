@@ -44,18 +44,26 @@ function drawBar(data) {
         max = getInt(max);
         let noun = max - max/5;
         while(noun >= 0) {
+            // 绘制数值
             let text = makeSVG("text", {x: init - 40, y: xLen - noun*scale + 5})
             text.innerHTML = noun;
-            let line = makeSVG("line", {x1: init-3, y1: xLen - noun*scale, x2: init, y2: xLen - noun*scale, stroke: lineColor, strokeWidth:2})
             $svg.appendChild(text)
+
+            // 绘制刻度标记
+            let line = makeSVG("line", {x1: init-3, y1: xLen - noun*scale, x2: init, y2: xLen - noun*scale, stroke: lineColor, strokeWidth:2})
             $svg.appendChild(line)
+
+            // 绘制参考线
+            line = makeSVG("line", {x1: init, y1: xLen - noun*scale, x2: yLen, y2: xLen - noun*scale, stroke: "#e8e8e8", strokeWidth: 1})
+            $svg.appendChild(line);
+
             noun -= max/5;
         }
 
         // 绘制柱子
         data.map((item, index) => {
             let x = init + space + index * (wBar + space);
-            let y = xLen - item * scale - 2;
+            let y = xLen - item * scale;
             let bar = makeSVG("rect", {width:wBar, height:item * scale, x, y, fill: barColor, stroke: barColor, strokeWidth: 1})
             $svg.appendChild(bar);
             // 绘制月份

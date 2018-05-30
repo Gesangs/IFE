@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Table</title>
+    <title>Document</title>
     <style>
         table  {
             width: 70%;
@@ -19,19 +19,30 @@
         td:hover{
             background-color: burlywood;
         }
+        #wrap, #s, #canvas{
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
+
         <div id="region-radio-wrapper"></div>
         <div id="product-radio-wrapper"></div>
-    
+        <br>
+        <div id="wrap">
+        </div>
+        
+        <canvas id="canvas" width="800" height="400"></canvas>
         <div id="table-wrapper"></div>
-
-    
-    <script src="./ife31data.js"></script>
-    <script src="./checkBox.js"></script>
-    <script src="./data.js"></script>
-    <script src="./table.js"></script>
+    <script>
+        
+    </script>
+    <script src="./bar.js"></script>
+    <script src="./line.js"></script>
+    <script src="../31-33/ife31data.js"></script>
+    <script src="../31-33/checkBox.js"></script>
+    <script src="../31-33/data.js"></script>
+    <script src="../31-33//table.js"></script>
     <script>
         // 生成选项
         let product = new CheckBox({
@@ -56,6 +67,26 @@
                 data,
                 container: document.getElementById("table-wrapper")
             }).createTable()
+            
+            // 生成鼠标经过所在行的数据
+            table.addEventListener("mouseover", (e) => {
+                let node = e.target;
+                if(node.nodeName == "TH") return;
+                if (node.parentNode.nodeName == "TR") {
+                    let nodeData = node.parentNode.getAttribute("data-source").split(",");
+                    let result = sourceData.find((item) => {
+                        if(nodeData.includes(item.product) && nodeData.includes(item.region)) {
+                            return true;
+                        }
+                    })
+                    // 绘制图表
+                    drawLine(result.sale)
+                    drawBar(result.sale)
+                }
+            })
+
+            drawLine(sourceData[0].sale)
+            drawBar(sourceData[0].sale)
         }
 
         window.addEventListener("change", init, true)

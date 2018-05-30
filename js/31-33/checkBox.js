@@ -73,6 +73,7 @@ class CheckBox {
         [...this.$allCheckBox].map((item) => {
             item.checked = "true";
         })
+        this.$all.checked = true;
     }
 
     // 点击其他按钮

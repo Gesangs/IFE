@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" width="1000" height="800"></canvas>    
+    <script>
+        let canvas = document.getElementById("canvas");
+        let ctx = canvas.getContext("2d");
+        ctx.moveTo(10, 10);
+        ctx.lineTo(100, 100);
+        ctx.stroke();
+
+        ctx.fillRect(120, 2, 100, 75);
+        
+        ctx.beginPath()
+        ctx.arc(300, 80, 60, 0, 2*Math.PI)
+        ctx.stroke()
+
+        ctx.beginPath();
+        ctx.font = "20px Georgia";
+        ctx.strokeText("这是canvas绘制的文本", 400, 50);
+        
+
+        /********  绘制云朵  *********/
+
+        // 绘制一个矩形，绘制几个圆心在矩形上的圆
+        ctx.beginPath()
+        ctx.fillStyle = "#18b7f5";
+        ctx.fillRect(200, 400, 100, 60)
+        function makeArc(x, y, r){
+            ctx.beginPath()
+            ctx.arc(x, y, r, 0, 2*Math.PI)
+            ctx.closePath()
+            ctx.fill()
+        }
+
+        makeArc(200, 430, 30)
+        makeArc(300, 430, 30)
+        makeArc(230, 400, 30)
+        makeArc(270, 400, 30)
+
+
+        /****   绘制时钟   *****/
+        
+        // 连接圆心和弧线终点形成指针
+        // 把起点终点设置成一样，弧线不会被绘制，只会留下终点
+        function makeZhiZhen(x, y, w, l, d) {
+            ctx.beginPath();
+            ctx.lineWidth = w;
+            ctx.lineCap="round";
+            ctx.moveTo(x,y);
+            ctx.arc(x, y, l, d, d);
+            ctx.stroke();
+        }
+
+        function formatTimeData(){
+            let date = new Date();
+
+            let hour = parseInt(date.getHours());
+            let minutes = parseInt(date.getMinutes());
+            let seconds = parseInt(date.getSeconds());
+            
+            // 计算角度，并转换成弧度制
+            // 先按常规的 y轴正方向 计算角度，
+            // 减去90度得到canvas中以x轴正方向的角度，
+            // 再乘于(Math.PI/180)得到弧度制
+            hour = (hour * 30 - 90 + minutes / 2) * Math.PI / 180;
+            minutes = (minutes * 6 - 90) * Math.PI / 180;
+            seconds = (seconds * 6 - 90) * Math.PI / 180;
+
+            let x = 800;
+            let y = 200;
+            
+            // 绘制表盘
+            ctx.beginPath();
+            ctx.lineWidth = 6;
+            ctx.arc(x, y, 70, 0, 2*Math.PI);
+            ctx.stroke();
+            
+            // 绘制指针
+            makeZhiZhen(x, y, 3, 35, hour);
+            makeZhiZhen(x, y, 2, 45, minutes);
+            makeZhiZhen(x, y, 1, 55, seconds);
+        }
+        
+        setInterval(function() {
+            ctx.clearRect(650, 100, 400, 400);
+            formatTimeData()
+        },500)
+        
+
+    </script>
+</body>
+</html>

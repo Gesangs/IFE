@@ -32,6 +32,14 @@ class Data {
         this.formatTh()
     }
 
+    filterData(){
+        return sourceData.filter((item) =>{
+            if(this.product.includes(item.product) && this.region.includes(item.region)) {
+                return true;
+            }
+        })
+    }
+
     // 生成表头数据
     formatTh(){
         let mouths = [this.first, this.two];
@@ -43,7 +51,7 @@ class Data {
 
     formatData() {
         this.createTableData(this.sourceData)
-        return this.result
+        return this
     }
 }
 

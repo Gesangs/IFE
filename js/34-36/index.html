@@ -25,18 +25,14 @@
     </style>
 </head>
 <body>
-
-        <div id="region-radio-wrapper"></div>
-        <div id="product-radio-wrapper"></div>
-        <br>
-        <div id="wrap">
-        </div>
+    <div id="region-radio-wrapper"></div>
+    <div id="product-radio-wrapper"></div>
+    <br>
+    <div id="wrap"></div>
         
-        <canvas id="canvas" width="800" height="400"></canvas>
-        <div id="table-wrapper"></div>
-    <script>
-        
-    </script>
+    <canvas id="canvas" width="800" height="400"></canvas>
+    <div id="table-wrapper"></div>
+    
     <script src="./bar.js"></script>
     <script src="./line.js"></script>
     <script src="../31-33/ife31data.js"></script>
@@ -53,7 +49,8 @@
             name: "region",
             arr: ["华东", "华南", "华北"]
         }).init()
-
+        
+        let selectData = null;
         function init() {
             // 生成表格数据
             let data = new Data({
@@ -61,15 +58,19 @@
                 product: product.getValue(),
                 region: region.getValue()
             }).formatData()
+            
+            selectData = data.filterData();
+            drawLine(selectData)
+            drawBar(sourceData[0].sale)
 
             // 按照数据绘制表格
             let table = new Table({
-                data,
+                data: data.result,
                 container: document.getElementById("table-wrapper")
             }).createTable()
             
             // 生成鼠标经过所在行的数据
-            table.addEventListener("mouseover", (e) => {
+            table.onmouseover = (e) => {
                 let node = e.target;
                 if(node.nodeName == "TH") return;
                 if (node.parentNode.nodeName == "TR") {
@@ -80,18 +81,20 @@
                         }
                     })
                     // 绘制图表
-                    drawLine(result.sale)
+                    drawLine([{sale: result.sale}])
                     drawBar(result.sale)
                 }
-            })
+            }
 
-            drawLine(sourceData[0].sale)
-            drawBar(sourceData[0].sale)
+            table.onmouseout = (e) => {
+                drawLine(selectData)
+            }
         }
 
         window.addEventListener("change", init, true)
 
         init()
+        
     </script>
 </body>
 </html>

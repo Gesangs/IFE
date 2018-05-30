@@ -38,7 +38,7 @@
     <script src="../31-33/ife31data.js"></script>
     <script src="../31-33/checkBox.js"></script>
     <script src="../31-33/data.js"></script>
-    <script src="../31-33//table.js"></script>
+    <script src="../31-33/table.js"></script>
     <script>
         // 生成选项
         let product = new CheckBox({
@@ -59,6 +59,7 @@
                 region: region.getValue()
             }).formatData()
             
+            // 输出图表数据
             selectData = data.filterData();
             drawLine(selectData)
             drawBar(sourceData[0].sale)

@@ -9,9 +9,11 @@
             margin: 0;
             padding: 0;
         }
+        .wrap{
+            overflow: hidden;
+        }
         .main-wrap, .left, .right {
             float: left;
-            height: 300px;
         }
         .main-wrap {
             width: 100%;
@@ -22,10 +24,15 @@
             margin-right: 200px;
             background-color: blue;
         }
+        /* 左右两列的高度随中间内容增加，等高 */
+        .left, .right{
+            margin-bottom: -3000px;
+            padding-bottom: 3000px; 
+        }
         .left {
             width: 200px;
             margin-left: -100%;
-            background-color: brown;
+            background-color: brown;  
         }
         .right {
             width: 200px;
@@ -35,11 +42,13 @@
     </style>
 </head>
 <body>
-    <div class="main-wrap">
-        <div class="main">main</div>
+    <div class="wrap">
+        <div class="main-wrap">
+            <div class="main">main</div>
+        </div>
+        <div class="left"></div>
+        <div class="right"></div>
     </div>
-    <div class="left"></div>
-    <div class="right"></div>
 </body>
 </html>
 

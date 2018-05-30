@@ -61,7 +61,7 @@ class CheckBox {
                 this.selectOne($target)
             }
             this.refresh()
-        }, true)
+        }, false)
     }
 
     refresh(){

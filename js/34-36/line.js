@@ -29,7 +29,7 @@ function drawLine(data = []) {
         init = 50,
         space = 50,
         max = getMax(data),
-        scale = (xLen - 20) / max;
+        scale = (xLen - 10) / max;
 
     ctx.clearRect(0, 0, 1000, 500);
 

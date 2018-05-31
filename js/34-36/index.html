@@ -1,38 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        table  {
+        table {
             width: 70%;
             font-size: 14px;
         }
 
-        td,th{
+        td,
+        th {
             text-align: center;
         }
+
         tr:hover {
             background-color: aquamarine;
         }
-        td:hover{
+
+        td:hover {
             background-color: burlywood;
         }
-        #wrap, #s, #canvas{
+
+        #wrap,
+        #s,
+        #canvas {
             display: inline-block;
         }
     </style>
 </head>
+
 <body>
     <div id="region-radio-wrapper"></div>
     <div id="product-radio-wrapper"></div>
     <br>
     <div id="wrap"></div>
-        
+
     <canvas id="canvas" width="800" height="400"></canvas>
     <div id="table-wrapper"></div>
-    
+
     <script src="./bar.js"></script>
     <script src="./line.js"></script>
     <script src="../31-33/ife31data.js"></script>
@@ -49,7 +57,7 @@
             name: "region",
             arr: ["华东", "华南", "华北"]
         }).init()
-        
+
         let selectData = null;
         function init() {
             // 生成表格数据
@@ -58,7 +66,7 @@
                 product: product.getValue(),
                 region: region.getValue()
             }).formatData()
-            
+
             // 输出图表数据
             selectData = data.filterData();
             drawLine(selectData)
@@ -69,20 +77,20 @@
                 data: data.result,
                 container: document.getElementById("table-wrapper")
             }).createTable()
-            
+
             // 生成鼠标经过所在行的数据
             table.onmouseover = (e) => {
                 let node = e.target;
-                if(node.nodeName == "TH") return;
+                if (node.nodeName == "TH") return;
                 if (node.parentNode.nodeName == "TR") {
                     let nodeData = node.parentNode.getAttribute("data-source").split(",");
                     let result = sourceData.find((item) => {
-                        if(nodeData.includes(item.product) && nodeData.includes(item.region)) {
+                        if (nodeData.includes(item.product) && nodeData.includes(item.region)) {
                             return true;
                         }
                     })
                     // 绘制图表
-                    drawLine([{sale: result.sale}])
+                    drawLine([{ sale: result.sale }])
                     drawBar(result.sale)
                 }
             }
@@ -95,7 +103,8 @@
         window.addEventListener("change", init, true)
 
         init()
-        
+
     </script>
 </body>
+
 </html>

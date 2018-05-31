@@ -21,11 +21,18 @@ function getMax(arr) {
     return Math.max.apply(Math, maxArr);
 }
 
+function drawPoint(x, y, r, color) {
+    ctx.beginPath()
+    ctx.arc(x, y, r, 0, 2 * Math.PI)
+    ctx.closePath()
+    ctx.fillStyle = color;
+    ctx.fill()
+}
+
 function drawLine(data = []) {
     let xLen = 350,
         yLen = 700,
-        pointR = 4,
-        lineWidth = 2,
+        pointR = 5,
         init = 50,
         space = 50,
         max = getMax(data),
@@ -33,38 +40,43 @@ function drawLine(data = []) {
 
     ctx.clearRect(0, 0, 1000, 500);
 
-    // 绘制横轴及纵轴
+    // 绘制x轴及y轴
     ctx.beginPath();
-    ctx.moveTo(init, 10);
+    ctx.moveTo(init, 0);
     ctx.lineTo(init, xLen);
     ctx.lineTo(yLen + init, xLen);
     ctx.stroke()
 
     // 绘制轴线刻度
+    // 获取y轴最大值，并换算成整十整百
     max = getInt(max);
-    let noun = max - max / 5;
-    while (noun >= 0) {
+    // 刻度间隔
+    let once = max / 5;
+    while (max >= 0) {
         // 刻度值
         ctx.beginPath()
-        ctx.strokeText(noun, init - 30, xLen - noun * scale + 3)
+        ctx.strokeText(max, init - 30, xLen - max * scale + 3)
         ctx.closePath()
 
-        // 刻度标记
-        ctx.beginPath();
-        ctx.moveTo(init - 3, xLen - noun * scale);
-        ctx.lineTo(init, xLen - noun * scale);
-        ctx.stroke()
+        // 0零刻度不需要绘制
+        if(max != 0) {
+            // 刻度标记
+            ctx.beginPath();
+            ctx.moveTo(init - 3, xLen - max * scale);
+            ctx.lineTo(init, xLen - max * scale);
+            ctx.stroke()
+    
+            // 参考线
+            ctx.beginPath()
+            ctx.moveTo(init, xLen - max * scale);
+            ctx.lineTo(yLen, xLen - max * scale);
+            ctx.strokeStyle = "#e8e8e8";
+            ctx.stroke()
+            ctx.closePath()
+            ctx.strokeStyle = "#000000";
+        }
 
-        // 参考线
-        ctx.beginPath()
-        ctx.moveTo(init, xLen - noun * scale);
-        ctx.lineTo(yLen, xLen - noun * scale);
-        ctx.strokeStyle = "#e8e8e8";
-        ctx.stroke()
-        ctx.closePath()
-        ctx.strokeStyle = "#000000";
-
-        noun -= max / 5;
+        max -= once;
     }
 
     let lastX, lastY;
@@ -99,15 +111,6 @@ function drawLine(data = []) {
             lastY = y;
         }) 
     })
-
 }
 
-function drawPoint(x, y, r, color) {
-    ctx.beginPath()
-    ctx.arc(x, y, r, 0, 2 * Math.PI)
-    ctx.closePath()
-    ctx.fillStyle = color;
-    ctx.fill()
-}
 
-drawLine()

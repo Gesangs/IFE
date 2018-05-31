@@ -15,6 +15,8 @@ function getInt(num) {
     }
 }
 
+let $warp = document.getElementById("wrap");
+
 function drawBar(data) {
     let width = "750",
         height = "400",
@@ -29,10 +31,8 @@ function drawBar(data) {
         scale = (xLen - 10) / max; // 像素点和数值之间的比例
 
         // 初始绘制区域
-        let $warp = document.getElementById("wrap");
         $warp.innerHTML = ""
-        $warp.appendChild(makeSVG("svg", {width, height, id: "s"}))
-        let $svg = document.getElementById("s");
+        let $svg = makeSVG("svg", {width, height, id: "s"});
 
         // 绘制x、y轴
         let x = makeSVG("line", {x1:init, y1:0, x2: init, y2: xLen, stroke:lineColor, strokeWidth: 2});
@@ -77,5 +77,6 @@ function drawBar(data) {
             $svg.appendChild(text)
         })
 
+        $warp.appendChild($svg)
 
 }

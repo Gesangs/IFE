@@ -57,10 +57,11 @@
 
             // 生成鼠标经过所在行的数据
             $wrap.onmouseover = (e) => {
+                console.log("s")
                 let node = e.target;
                 if (node.nodeName == "TH") return;
-                if (node.parentNode.parentNode.nodeName == "TR") {
-                    let nodeData = node.parentNode.parentNode.getAttribute("data-source").split(",");
+                if (node.parentNode.nodeName == "TR") {
+                    let nodeData = node.parentNode.getAttribute("data-source").split(",");
                     let result = sourceData.find((item) => {
                         if (nodeData.includes(item.product) && nodeData.includes(item.region)) {
                             return true;

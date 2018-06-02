@@ -19,6 +19,7 @@ class NewData extends Data {
         return (num) => {
             data.map((item) => {
                 if(arr.includes(item.product) && arr.includes(item.region)){
+                    if(item.sale[index] == num) return
                     item.sale[index] = num;
                     localStorage.setItem("sourceData", JSON.stringify(data))
                     return;

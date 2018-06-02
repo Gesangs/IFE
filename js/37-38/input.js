@@ -34,15 +34,18 @@ class Input {
             this.fun(value)
         } else {
             console.log("请输入数字")
+            alert("!!!")
             this.node.innerHTML = this.preData;
         }   
     }
 
     addEvent() {
-        this.$conBtn.addEventListener("click", this.inputBlur.bind(this),true)
+        this.$conBtn.addEventListener("mousedown", this.inputBlur.bind(this),true)
         this.$canBtn.addEventListener("mousedown", (e) => {
             this.node.innerHTML = this.preData;            
         },false)
-        this.$input.onblur = this.inputBlur.bind(this)
+        this.$input.onblur = () => {
+            this.node.innerHTML = this.preData;  
+        }
     }
 }

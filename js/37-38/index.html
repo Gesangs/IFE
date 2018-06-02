@@ -70,13 +70,12 @@
                 let node = e.target;
                 let preData = node.innerHTML;
                 if(node.nodeName === "TD") {
+                    // 获取["商品", "地区"] 和月份
                     let parent = node.parentNode.getAttribute("data-source").split(",");
                     let parentLen = node.parentNode.children.length;
                     let mouth = node.getAttribute("data-mouth")
                     mouth = parentLen == 13 ?  mouth - 1 : mouth - 2;
-                    
-                    console.log()
-
+                
                     new Input({node}).createInput(data.setLocalData(parent, mouth))
                 }
             })

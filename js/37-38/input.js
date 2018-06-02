@@ -1,7 +1,7 @@
 class Input {
     constructor(obj) {
         this.node = obj.node;
-        this.preData = this.node.innerHTML;
+        this.preData = this.node.innerHTML.match(/\d+/g);
         this.value;
         this.$input = document.createElement("input");
         this.$conBtn = document.createElement("button");

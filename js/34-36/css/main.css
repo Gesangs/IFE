@@ -36,3 +36,18 @@ table td div {
     justify-content: center;
     align-items: center;
 }
+
+table td {
+    position: relative;
+    padding: 10px 20px;
+}
+table td span {
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    display: none;
+    font-size: 10px;
+}
+td:hover span {
+    display: inline;
+}

@@ -79,6 +79,15 @@
                     new Input({node}).createInput(data.setLocalData(parent, mouth))
                 }
             })
+
+           table.addEventListener("mouseover", (e) => {
+                let node = e.target;
+                if(node.nodeName === "TD") {
+                    if(!Number.isNaN(Number(node.innerHTML))) {
+                        node.innerHTML += "<span>编辑</span>"
+                    }
+                }
+           })
         }
 
         document.getElementById("wrap").addEventListener("change", init, true)

@@ -5,31 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <style>
-        table {
-            width: 70%;
-            font-size: 14px;
-        }
-
-        td,
-        th {
-            text-align: center;
-        }
-
-        tr:hover {
-            background-color: aquamarine;
-        }
-
-        td:hover {
-            background-color: burlywood;
-        }
-
-        #wrap,
-        #s,
-        #canvas {
-            display: inline-block;
-        }
-    </style>
+    <link href="./css/main.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -41,12 +17,12 @@
     <canvas id="canvas" width="800" height="400"></canvas>
     <div id="table-wrapper"></div>
 
-    <script src="./bar.js"></script>
-    <script src="./line.js"></script>
-    <script src="../31-33/ife31data.js"></script>
-    <script src="../31-33/checkBox.js"></script>
-    <script src="../31-33/data.js"></script>
-    <script src="../31-33/table.js"></script>
+    <script src="./js/bar.js"></script>
+    <script src="./js/line.js"></script>
+    <script src="../31-33/js/ife31data.js"></script>
+    <script src="../31-33/js/checkBox.js"></script>
+    <script src="../31-33/js/data.js"></script>
+    <script src="../31-33/js/table.js"></script>
     <script>
         // 生成选项
         let product = new CheckBox({
@@ -60,6 +36,7 @@
 
         let selectData = null;
         function init() {
+            let $wrap = document.getElementById("table-wrapper");
             // 生成表格数据
             let data = new Data({
                 sourceData,
@@ -75,15 +52,15 @@
             // 按照数据绘制表格
             let table = new Table({
                 data: data.result,
-                container: document.getElementById("table-wrapper")
+                container: $wrap
             }).createTable()
 
             // 生成鼠标经过所在行的数据
-            table.onmouseover = (e) => {
+            $wrap.onmouseover = (e) => {
                 let node = e.target;
                 if (node.nodeName == "TH") return;
-                if (node.parentNode.nodeName == "TR") {
-                    let nodeData = node.parentNode.getAttribute("data-source").split(",");
+                if (node.parentNode.parentNode.nodeName == "TR") {
+                    let nodeData = node.parentNode.parentNode.getAttribute("data-source").split(",");
                     let result = sourceData.find((item) => {
                         if (nodeData.includes(item.product) && nodeData.includes(item.region)) {
                             return true;
@@ -93,9 +70,10 @@
                     drawLine([{ sale: result.sale }])
                     drawBar(result.sale)
                 }
+                
             }
 
-            table.onmouseout = (e) => {
+            $wrap.onmouseout = (e) => {
                 drawLine(selectData)
             }
         }

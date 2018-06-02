@@ -1,0 +1,20 @@
+table {
+    width: 70%;
+    font-size: 14px;
+}
+
+td,
+th {
+    text-align: center;
+}
+
+tr:hover {
+    background-color: aquamarine;
+}
+
+td:hover {
+    background-color: burlywood;
+}
+input {
+    border: none;
+}

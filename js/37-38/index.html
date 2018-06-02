@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Table</title>
+    <link href="../34-36/css/main.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="wrap">
+        <div id="region-radio-wrapper"></div>
+        <div id="product-radio-wrapper"></div>
+    </div>
+    
+
+    <div id="table-wrapper"></div>
+
+
+    <script src="../31-33/js/ife31data.js"></script>
+    <script src="../31-33/js/checkBox.js"></script>
+    <script src="../31-33/js/data.js"></script>
+    <script src="./newdata.js"></script>
+    <script src="../31-33/js/table.js"></script>
+    <script src="./input.js"></script>
+    <script>
+        // 生成选项
+        let product = new CheckBox({
+            name: "product",
+            arr: ["手机", "笔记本", "智能音箱"]
+        }).init()
+        let region = new CheckBox({
+            name: "region",
+            arr: ["华东", "华南", "华北"]
+        }).init()
+        
+        function insertInput(node, init) {
+            node.innerHTML = "";            
+            let $input = document.createElement("input");
+            $input.value = init;
+            let $conBtn = document.createElement("button");
+            $conBtn.innerHTML = "确认";
+            let $canBtn = document.createElement("button");
+            $canBtn.innerHTML = "取消";
+            node.appendChild($input)
+            node.appendChild($conBtn)
+            node.appendChild($canBtn)
+            $input.focus()
+
+            return node;
+        }
+        
+
+        function init(e) {          
+            // 生成表格数据
+            let data = new NewData({
+                sourceData,
+                product: product.getValue(),
+                region: region.getValue()
+            }).formatData()
+
+            // 按照数据绘制表格
+            let table = new Table({
+                data: data.result,
+                container: document.getElementById("table-wrapper")
+            }).createTable()
+
+            table.addEventListener("click", (e) => {
+                let node = e.target;
+                let preData = node.innerHTML;
+                if(node.nodeName === "TD") {
+                    let parent = node.parentNode.getAttribute("data-source").split(",");
+                    let parentLen = node.parentNode.children.length;
+                    let mouth = node.getAttribute("data-mouth")
+                    mouth = parentLen == 13 ?  mouth - 1 : mouth - 2;
+                    
+                    console.log()
+
+                    new Input({node}).createInput(data.setLocalData(parent, mouth))
+                }
+            })
+        }
+
+        document.getElementById("wrap").addEventListener("change", init, true)
+
+        init()
+    </script>
+</body>
+</html>

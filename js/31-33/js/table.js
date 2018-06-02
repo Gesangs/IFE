@@ -37,12 +37,14 @@ class Table {
     createTableTd(data){
         let $warp = document.createDocumentFragment();
         let $tr;
+        let $input;
         data.map((item, index) => { 
             $tr = document.createElement("tr");
             item.map((i, d) => {
                 let $td = document.createElement("td");  
                 $td.innerHTML = i;
                 if(index == 0 && d == 0) $td.rowSpan = data.length;
+                $td.setAttribute("data-mouth", d)                
                 $tr.appendChild($td);  
             })
             if(index == 0) {

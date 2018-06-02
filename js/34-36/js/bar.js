@@ -28,7 +28,7 @@ function drawBar(data) {
         barColor = "#38ba72",
         lineColor = "black";
         max = Math.max.apply(Math, data),
-        scale = (xLen - 10) / max; // 像素点和数值之间的比例
+        scale = (xLen - 80) / max; // 像素点和数值之间的比例
 
         // 初始绘制区域
         $warp.innerHTML = ""

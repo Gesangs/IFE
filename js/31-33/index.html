@@ -5,25 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Table</title>
-    <style>
-        table {
-            width: 70%;
-            font-size: 14px;
-        }
-
-        td,
-        th {
-            text-align: center;
-        }
-
-        tr:hover {
-            background-color: aquamarine;
-        }
-
-        td:hover {
-            background-color: burlywood;
-        }
-    </style>
+    <link href="./css/main.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -33,10 +15,10 @@
     <div id="table-wrapper"></div>
 
 
-    <script src="./ife31data.js"></script>
-    <script src="./checkBox.js"></script>
-    <script src="./data.js"></script>
-    <script src="./table.js"></script>
+    <script src="./js/ife31data.js"></script>
+    <script src="./js/checkBox.js"></script>
+    <script src="./js/data.js"></script>
+    <script src="./js/table.js"></script>
     <script>
         // 生成选项
         let product = new CheckBox({
@@ -58,7 +40,7 @@
 
             // 按照数据绘制表格
             let table = new Table({
-                data,
+                data: data.result,
                 container: document.getElementById("table-wrapper")
             }).createTable()
         }

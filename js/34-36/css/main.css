@@ -1,0 +1,38 @@
+table {
+    width: 70%;
+    font-size: 14px;
+}
+
+td,
+th {
+    text-align: center;
+}
+
+tr:hover,
+td:hover input {
+    background-color: aquamarine;
+}
+
+td:hover,
+td:hover input {
+    background-color: burlywood;
+}
+
+#wrap,
+#s,
+#canvas {
+    display: inline-block;
+}
+table input {
+    width: 40px;
+    height: 100%;
+    box-sizing: border-box;
+    border: 0px;
+    flex: 0 1 0;
+}
+table td div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

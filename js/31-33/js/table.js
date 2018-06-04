@@ -40,13 +40,15 @@ class Table {
         let $input;
         data.map((item, index) => { 
             $tr = document.createElement("tr");
+            let len = item.length;
             item.map((i, d) => {
                 let $td = document.createElement("td");  
                 $td.innerHTML = i;
                 if(index == 0 && d == 0) {
                     $td.rowSpan = data.length;
                 }
-                $td.setAttribute("data-mouth", d)                
+                // 设置月销量数据所在的数组位置
+                $td.setAttribute("data-index", d - len + 12)                
                 $tr.appendChild($td);  
             })
             if(index == 0) {

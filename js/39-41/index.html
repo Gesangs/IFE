@@ -27,9 +27,9 @@
     <script src="../31-33/js/ife31data.js"></script>
     <script src="../31-33/js/checkBox.js"></script>
     <script src="../31-33/js/data.js"></script>
-    <script src="./newdata.js"></script>
+    <script src="../37-38/newdata.js"></script>
     <script src="../31-33/js/table.js"></script>
-    <script src="./input.js"></script>
+    <script src="../37-38/input.js"></script>
     <script>
         let $checkWrap = document.getElementById("checkWrap");
         // 生成选项
@@ -41,15 +41,33 @@
             name: "region",
             arr: ["华东", "华南", "华北"]
         }).init()
+
+        function analysisHash() {
+            let obj = {};
+            let hashValueArr = location.hash.slice(3).split("&");
+            hashValueArr.map((item) => {
+                let arr = item.split("=");
+                obj[arr[0]] = arr[1] ? decodeURI(arr[1]).split(",") : [];
+            })
+            return obj;
+        }
+
+        let ch = {
+            product,
+            region
+        }
         
+        
+        let content = analysisHash();        
         let selectData = null;        
-        function init(e) {          
+        function render(e) {          
             // 生成表格数据
             let data = new NewData({
                 sourceData,
-                product: product.getValue(),
-                region: region.getValue()
+                product: content.product || product.getValue(),
+                region: content.region || region.getValue()
             }).formatData()
+
 
             // 按照数据绘制表格
             let table = new Table({
@@ -61,27 +79,6 @@
             selectData = data.filterData();
             drawLine(selectData)
             drawBar(selectData[0].sale)
-
-            table.addEventListener("mouseover", (e) => {
-                let node = e.target;
-                if(node.nodeName === "TD") {
-                    let index = node.getAttribute("data-index")     
-                    if(node.getElementsByTagName("input")[0]) return;                                                  
-                    if(index >= 0) {
-                        if(!node.getElementsByTagName("span")[0])
-                        node.innerHTML += "<span>编辑</span>"
-                        let arr = node.parentNode.getAttribute("data-source").split(",");                        
-                        let result = data.filterData().find((item) => {
-                            if (arr.includes(item.product) && arr.includes(item.region)) {
-                                return true;
-                            }
-                        })
-                        // 绘制图表
-                        drawLine([{ sale: result.sale }])
-                        drawBar(result.sale)
-                    }
-                }
-           })
 
             table.addEventListener("click", (e) => {
                 let node = e.target;
@@ -96,23 +93,57 @@
                         new Input({
                             node,
                             fun: data.setLocalData(arr, index)
-                        })
-
-                        
+                        })                    
                     }
                 }
             })
 
-           
+           table.addEventListener("mouseover", (e) => {
+                let node = e.target;
+                let num = node.innerHTML
+                if(node.nodeName === "TD") {
+                    let index = node.getAttribute("data-index")    
+                    if(node.getElementsByTagName("input")[0]) return;               
+                    if(index >= 0) {
+                        if(!node.getElementsByTagName("span")[0])
+                        node.innerHTML = num + "<span>编辑</span>"
+                        let arr = node.parentNode.getAttribute("data-source").split(",");                        
+                        let result = data.filterData().find((item) => {
+                            if (arr.includes(item.product) && arr.includes(item.region)) {
+                                return true;
+                            }
+                        })
+                        // 绘制图表
+                        drawLine([{ sale: result.sale }])
+                        drawBar(result.sale)
+                    }
+                }
+           })
 
            table.onmouseout = (e) => {
                 drawLine(selectData)
             }
         }
 
-       $checkWrap.addEventListener("change", init, true)
+        function init() {
+            for(let con in content) {
+                content[con].map((item) => {
+                    let $checkBox = $checkWrap.querySelector(`input[value='${item}']`);
+                    $checkBox.checked = true
+                    ch[con].clickEvent($checkBox)
+                })
+            }
+        }
 
+       window.addEventListener("hashchange", render, true)
+
+       $checkWrap.addEventListener("change", (e) => {
+           let hashStr = `/?product=${product.getValue().join()}&region=${region.getValue().join()}`;
+           location.hash = hashStr;
+           content = analysisHash();        
+       })
        init()
+       render()
     </script>
 </body>
 </html>

@@ -1,10 +1,10 @@
 class NewData extends Data {
     constructor(obj) {
         super(obj)
-
         this.localData = null;
     }
 
+    // 查询本地数据
     checkLocalStorage() {
         if(!window.localStorage) {
             alert("浏览器不支持localStorage")
@@ -14,6 +14,7 @@ class NewData extends Data {
         }
     }
 
+    // 根据input所在位置生成保存数据的方法
     setLocalData(arr, index) {
         let data  = this.localData ? this.localData : this.sourceData;
         return (num) => {
@@ -28,6 +29,16 @@ class NewData extends Data {
         } 
     }
 
+    filterData(){
+        let data = this.localData ? this.localData : this.sourceData;        
+        return data.filter((item) =>{
+            if(this.product.includes(item.product) && this.region.includes(item.region)) {
+                return true;
+            }
+        })
+    }
+
+    // 重写父级方法，加入查询本地数据
     formatData() {
         if(!this.localData) {
             this.checkLocalStorage();

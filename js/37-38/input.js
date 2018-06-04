@@ -6,10 +6,11 @@ class Input {
         this.$input = document.createElement("input");
         this.$conBtn = document.createElement("button");
         this.$canBtn = document.createElement("button");
-        this.fun
+        this.fun = obj.fun
+        this.createInput()
     }
 
-    createInput(fun){
+    createInput(){
         this.node.innerHTML = ""
         this.$input.value = this.preData;
         this.node.appendChild(this.$input);
@@ -19,7 +20,6 @@ class Input {
         this.$canBtn.innerHTML = "取消";
         this.node.appendChild(this.$canBtn);       
         this.addEvent()         
-        this.fun = fun;
     }
     
 
@@ -42,10 +42,10 @@ class Input {
     addEvent() {
         this.$conBtn.addEventListener("mousedown", this.inputBlur.bind(this),true)
         this.$canBtn.addEventListener("mousedown", (e) => {
-            this.node.innerHTML = this.preData;            
+            this.node.innerHTML = this.preData[0];            
         },false)
-        this.$input.onblur = () => {
-            this.node.innerHTML = this.preData;  
-        }
+        this.$input.addEventListener("blur", (e) => {
+            this.node.innerHTML = this.preData[0];   
+        },false)
     }
 }

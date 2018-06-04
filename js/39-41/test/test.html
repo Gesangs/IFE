@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>hash</title>
+</head>
+<body>
+    <div id="wrap">
+        <button id="a">A</button>
+        <button id="b">B</button>
+        <button id="c">C</button>
+        <div id="cont"></div>
+    </div>
+
+    <script>
+        let $con = document.getElementById("cont");
+        let $wrap = document.getElementById("wrap");
+        
+        function analysisHash() {
+            let hash = location.hash
+            return hash.slice(1);
+        }
+
+        function render() {
+            let content = analysisHash() || "";
+            $con.innerHTML = content;
+        }
+
+        document.getElementById("wrap").onclick = function(e) {
+            if(e.target.nodeName === "BUTTON") {
+                let con = e.target.innerHTML;
+                location.hash = con;
+            }
+        }
+
+        window.onhashchange = render;
+
+        render()
+    </script>
+</body>
+</html>

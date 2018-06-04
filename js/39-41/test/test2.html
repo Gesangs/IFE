@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <button id="a">A</button>
+        <button id="b">B</button>
+        <button id="c">C</button>
+
+        <button id="d">D</button>
+        <button id="e">E</button>
+        <button id="f">F</button>
+        
+        <div id="contABC"></div>
+        <div id="contDEF"></div>
+        
+        <script>
+            let contABC = document.getElementById("contABC");
+            let contDEF = document.getElementById("contDEF");    
+
+            function analysisHash() {
+                let obj = {};
+                let hashValueArr = location.hash.slice(3).split("&");
+                hashValueArr.map((item) => {
+                    let arr = item.split("=");
+                    obj[arr[0]] = arr[1] ? arr[1] : "";
+                })
+                return obj;
+            }
+
+            function render() {
+                let content = analysisHash()
+                for(let item in content) {
+                    if(item) {
+                        document.getElementById(item).innerHTML = content[item];
+                    }
+                }
+            }
+            
+            window.onclick = (e) => {
+                if(e.target.nodeName === "BUTTON") {
+                    let con = e.target.innerHTML;
+                    let str = '';
+                    if("ABC".indexOf(con) != -1) {
+                        str = `/?contABC=${con}&contDEF=${contDEF.innerHTML}`;
+                    } else if("DEF".indexOf(con) != -1) {
+                        str = `/?contABC=${contABC.innerHTML}&contDEF=${con}`;                    
+                    }
+                    location.hash = str;
+                }
+            }
+
+            window.onhashchange = render;
+
+            render()
+            
+        </script>
+</body>
+</html>

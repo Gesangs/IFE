@@ -53,15 +53,19 @@ class CheckBox {
 
     addEvent(){
         this.container.addEventListener("click", (e) => {
-            this.refresh()            
-            let $target = e.target;
-            if($target.name === "all") {
-                this.selectAll()
-            } else if($target.name === this.name) {
-                this.selectOne($target)
-            }
-            this.refresh()
+            this.clickEvent(e)
         }, false)
+    }
+
+    clickEvent(e) {
+        this.refresh()            
+        let $target = e.target || e;
+        if($target.name === "all") {
+            this.selectAll()
+        } else if($target.name === this.name) {
+            this.selectOne($target)
+        }
+        this.refresh()
     }
 
     refresh(){

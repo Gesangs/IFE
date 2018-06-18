@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Restaurant</title>
+</head>
+<body>
+    <script src="./es6/restaurant.js"></script>
+    <script src="./es6/worker.js"></script>
+    <script src="./es6/cook.js"></script>
+    <script src="./es6/waiter.js"></script>
+    <script src="./es5/customer.js"></script>
+    <script>
+        var ifeRestaurant = new Restaurant({
+            cash: 1000000,
+            seats: 20,
+            staff: []
+        });
+
+        var newCook = new Cook({
+            id: 1,
+            name: "Tony",
+            wage: 10000
+        });
+        ifeRestaurant.hire(newCook);
+        
+        var newWaiter = new Waiter({
+            id: 2,
+            name: "hah",
+            wage: 8000
+        })
+
+        ifeRestaurant.hire(newWaiter);
+        
+        console.log(ifeRestaurant.staff);
+
+        ifeRestaurant.fire(newCook);
+
+        console.log(ifeRestaurant.staff);
+
+    </script>
+</body>
+</html>

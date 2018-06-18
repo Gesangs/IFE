@@ -4,6 +4,8 @@
 ### [百度前端技术学院](http://ife.baidu.com/)
 
 
+
+
 ### 第七、八天
 
  - 两栏布局
@@ -22,7 +24,7 @@
 
 # 倒数开始 滴答滴 滴答滴（25-27）
 
-> 计算某个时间点离现在的时间差
+> 计算所选则时间点离现在的时间差
 
 
 ### [倒计时](https://gesangs.github.io/IFE/js/25-27/timeTest)
@@ -31,7 +33,7 @@
 
 # 给爱的人发个邮件吧（28-30）
 
-> 输入邮箱提示、自动补全
+> 输入邮箱时提示、自动补全、方向键选择
 
 
 ### [预览](https://gesangs.github.io/IFE/js/28-30/index.html)
@@ -40,7 +42,7 @@
 
 # 我是精明的小卖家（一）（31-33）
 
-> 数据报表，根据选择项渲染表格
+> 数据报表，根据选择项**渲染表格**
 
 ### [预览](https://gesangs.github.io/IFE/js/31-33/)
 
@@ -49,29 +51,29 @@
 
 # 我是精明的小卖家（二）（34-36）
 
-> 数据报表，根据选择项渲染表格和图表
+> 数据报表，根据选择项渲染表格和**图表**
 
-### [小树](https://gesangs.github.io/IFE/js/34-36/test/test.svg)
+### [svg](https://gesangs.github.io/IFE/js/34-36/test/test.svg)
 
-### [时钟](https://gesangs.github.io/IFE/js/34-36/test/canvas.html)
+### [canvas](https://gesangs.github.io/IFE/js/34-36/test/canvas.html)
 
-### [图表](https://gesangs.github.io/IFE/js/34-36/index.html)
+### [预览](https://gesangs.github.io/IFE/js/34-36/index.html)
 
 
 
 
 # 我是精明的小卖家（三）（37-38）
 
-> 数据报表，根据选择项渲染表格和图表，并数据可编辑保存
+> 数据报表，根据选择项渲染表格和图表，并数据可**编辑保存**
 
 
-### [图表](https://gesangs.github.io/IFE/js/37-38/index.html)
+### [预览](https://gesangs.github.io/IFE/js/37-38/index.html)
 
 
 
 # 我是精明的小卖家（四）（39-41）
 
-> 数据报表，根据选择项渲染表格和图表，并数据可编辑保存，增加hash保存选项功能
+> 数据报表，根据选择项渲染表格和图表，并数据可编辑保存，增加**hash保存选项**功能
 
 
-### [图表](https://gesangs.github.io/IFE/js/39-41/index.html)
+### [预览](https://gesangs.github.io/IFE/js/39-41/index.html)

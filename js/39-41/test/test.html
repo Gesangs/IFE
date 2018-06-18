@@ -17,26 +17,45 @@
         let $con = document.getElementById("cont");
         let $wrap = document.getElementById("wrap");
         
-        function analysisHash() {
-            let hash = location.hash
-            return hash.slice(1);
-        }
+        // function analysisHash() {
+        //     let hash = location.hash
+        //     return hash.slice(1);
+        // }
 
-        function render() {
-            let content = analysisHash() || "";
-            $con.innerHTML = content;
-        }
+        // function render() {
+        //     let content = analysisHash() || "";
+        //     $con.innerHTML = content;
+        // }
 
-        document.getElementById("wrap").onclick = function(e) {
+        // $wrap.onclick = function(e) {
+        //     if(e.target.nodeName === "BUTTON") {
+        //         let con = e.target.innerHTML;
+        //         location.hash = con;
+        //     }
+        // }
+
+        // window.onhashchange = render;
+
+        // render()
+        
+
+        $wrap.onclick = function (e) {
             if(e.target.nodeName === "BUTTON") {
                 let con = e.target.innerHTML;
-                location.hash = con;
+                history.pushState({con}, null, location.href.split("?")[0] + "?" + con);
+                pushState()
             }
         }
 
-        window.onhashchange = render;
+        function pushState() {
+            let obj = history.state;
+            $con.innerHTML = obj.con;
+        }
 
-        render()
+        pushState()
+
+        window.addEventListener("popstate", pushState)
+
     </script>
 </body>
 </html>

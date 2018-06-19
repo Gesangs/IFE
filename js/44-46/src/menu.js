@@ -1,4 +1,4 @@
-var Menu = function(arr) {
+export const Menu = function(arr) {
     this.innerMenu = arr;
     this.outMenu = [];
 
@@ -18,6 +18,6 @@ Menu.prototype.createOutMenu = function() {
 // 点菜，返回一个数组
 Menu.prototype.order = function() {
     let len = this.outMenu.length;
-    let index = Math.floor(Math.random()*len);
+    let index = Math.floor(Math.random() * (len - 1));
     return [this.outMenu[index]];
 }

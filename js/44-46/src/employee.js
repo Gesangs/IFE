@@ -1,4 +1,4 @@
-var Employee = function(obj = {}) {
+export const Employee = function(obj = {}) {
     this.id = obj.id;
     this.name = obj.name;
     this.wage = obj.wage;

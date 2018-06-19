@@ -1,9 +1,7 @@
-var Restaurant = function(obj = {}) {
+export const Restaurant = function(obj = {}) {
     this.cash = obj.cash;
     this.seats = obj.seats;
     this.staff = obj.staff;
-
-    console.log(this.cash)
 }
 
 // 聘用

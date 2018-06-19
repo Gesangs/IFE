@@ -1,25 +1,27 @@
-var Waiter = function(obj = {}) {
-    Worker.call(this, obj);
+import { Employee } from "./employee"
+
+export const Waiter = function(obj = {}) {
+    Employee.call(this, obj);
 }
 
-Waiter.prototype = new Worker();
+Waiter.prototype = new Employee();
 
 Waiter.prototype.work = function(foods) {
     if(Object.prototype.toString.call(foods) === "[object Array]") {
         //  点菜
-        Waiter._order(foods);
+        this._order(foods);
     } else {
         //  上菜
-        Waiter._serving(foods);
+        this._serving(foods);
     }
 }
 
 Waiter.prototype._order = function(foods) {
     foods.map((item) => {
-        console.log(item.name);
+        console.log("一份" + item.name);
     })
 }
 
 Waiter.prototype._serving = function(food) {
-    console.log(food.name);
+    console.log(food.name + "做好咯");
 }

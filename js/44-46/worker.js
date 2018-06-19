@@ -1,9 +1,9 @@
-var Worker = function(obj = {}) {
+var Employee = function(obj = {}) {
     this.id = obj.id;
     this.name = obj.name;
     this.wage = obj.wage;
 }
 
-Worker.prototype.work = function() {
+Employee.prototype.work = function() {
     console.log("请分配工作");
 }

@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   // 入口文件
-  entry: './src/app.js',
+  entry: './src/js/app.js',
 
   // 输出   
   output: {

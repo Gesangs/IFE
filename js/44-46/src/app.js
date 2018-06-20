@@ -103,7 +103,7 @@ async function open() {
         await delay(1000)
         console.log("欢迎下次光临")
         restaurant.seats++;
-        console.log("--------------------------------------")
+        console.log("-----------------------------------")
     }
     
 }

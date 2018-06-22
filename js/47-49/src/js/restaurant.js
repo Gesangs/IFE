@@ -43,6 +43,10 @@ export class Restaurant {
     settle(cash) {
         this.cash += cash;
         document.getElementById("cash").innerHTML = "$" + this.cash;
+        this.customerQueue.map((item) => {
+            item.y -= 120;
+            item.node.moveTo(item.x, item.y);
+        })
         this.next();
     }
 
@@ -51,7 +55,7 @@ export class Restaurant {
         let waiter = this.waiterQueue[0];
         let cook = this.cookQueue[0];
         let customer = this.customerQueue.shift();
-        
+
         if(customer && waiter && cook) {
             customer.setNext({
                 restaurant: this,

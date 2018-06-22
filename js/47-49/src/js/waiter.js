@@ -14,7 +14,7 @@ export class Waiter extends Employee {
     async toCook(foods) {
         let cook = this.next.cook;
         this.node.setText("请稍等")
-        this.node.moveTo(cook.node.left + 100, cook.node.top);
+        this.node.moveTo(cook.x + 100, cook.y);
         await delay(moveTime, foods).then(cook.cooking);
     }
 
@@ -27,7 +27,7 @@ export class Waiter extends Employee {
         this.node.moveTo(customer.x - 100, customer.y);
         delay(1000).then(() => {
             setText("");
-            this.node.moveTo(cook.node.left + 100, cook.node.top);
+            this.node.moveTo(cook.x + 100, cook.y);
         })
         await delay(moveTime, food).then(customer.eat);
     }

@@ -37,6 +37,7 @@ export class Customer extends Handler {
             len--;
         }
         await delay(3000, this.foodList).then((list) => {
+            setText(list)
             clearInterval(this.timer)
             this.timer = setInterval(() => {
                 setText(list)
@@ -58,9 +59,12 @@ export class Customer extends Handler {
     checkEatEnd() {
         if (this.foodList.every((item) => item.eatState === 0)) {
             clearInterval(this.timer)
-            this.next.restaurant.settle(this.cash)
             let customer = this.node;
             customer.setText("真棒！下次还来 <br /> $" + this.cash);
+            delay(1000).then(() => {
+                document.getElementById("app").removeChild(customer.box);
+                this.next.restaurant.settle(this.cash)
+            })
         }
     }
 

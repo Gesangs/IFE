@@ -1,35 +1,49 @@
 import { Customer } from "./customer";
 import { Restaurant } from "./restaurant";
-import { Cook } from "./cook";
-import { Waiter } from "./waiter";
+import "../style/index.css"
 
+
+// 租个店面
 const restaurant = new Restaurant({
     cash: 1000000,
     seats: 1,
     staff: []
 })
 
-const cook = new Cook({
+// 找个厨子
+restaurant.hire("Cook", {
     id: 1,
     name: "cook",
-    wage: 10000
-})
+    wage: 10000,
+    x: 200,
+    y: 200,
+    width: 100,
+    height: 100
+});
 
-const waiter = new Waiter({
+// 找个跑堂的
+restaurant.hire("Waiter", {
     id: 2,
     name: "waiter",
-    wage: 8000
-})
+    wage: 8000,
+    x: 600,
+    y: 200,
+    width: 100,
+    height: 100
+});
 
-restaurant.hire(cook);
-restaurant.hire(waiter);
+// 迎接客人
+for(let i = 0; i < 6; i++) {
+    restaurant.setCustomerQueue(new Customer({
+        name: "客人" + (i+1),
+        x: 1200,
+        y: 200 + 120 * i,
+        width: 100,
+        height: 100
+    }));
+}
 
-
-const xiaoming = new Customer("xiaoming");
-
-xiaoming.setNext(waiter);
-waiter.setNext(cook);
-cook.setNext(waiter);
-
-xiaoming.order()
-
+// 开张
+document.getElementById("open").onclick = () => {
+    restaurant.next();
+}

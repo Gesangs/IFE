@@ -1,6 +1,7 @@
 const path = require('path')
 const UglifyPlugin = require('uglifyjs-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   // 入口文件
@@ -21,6 +22,28 @@ module.exports = {
         ],
         use: 'babel-loader',
       },
+      {
+        test: /.*\.(gif|png|jpe?g|svg|webp)$/i,
+        include: [
+          path.resolve(__dirname, "src")
+        ],
+        use: [
+          {
+            loader: 'file-loader',
+            options: {}
+          }
+        ]
+      },
+      {
+        test: /\.css/,
+        include: [
+          path.resolve(__dirname, 'src'),
+        ],
+        use: ExtractTextPlugin.extract({ 
+          fallback: 'style-loader',
+          use: 'css-loader',
+        }),
+      }
     ],
   },
 
@@ -38,6 +61,10 @@ module.exports = {
     //  压缩 
     new UglifyPlugin(),
     // 生成HTML
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      filename: 'index.html', // 配置输出文件名和路径
+      template: 'src/index.html', // 配置文件模板
+    }),
+    new ExtractTextPlugin('index.css')
   ],
 }

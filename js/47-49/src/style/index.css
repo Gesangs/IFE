@@ -1,0 +1,35 @@
+#app {
+    position: relative;
+    height: 1000px;
+    font-size: 13px;
+}
+
+#app div,
+#app > img {
+    position: absolute;
+    transition: all, 1s;
+}
+
+p {
+    position: absolute;
+    border: 1px solid #e8e8e8;
+    box-shadow: 3px 0px 4px 0 #e8e8e8;
+    z-index: 1000;
+    min-width: 180px;
+    text-align: center;
+}
+
+#app .cook > p {
+    left: 0px;
+    top: -120px;
+} 
+
+#app .waiter > p {
+    left: 0px;
+    top: 100px;
+}
+
+#app .customer > p {
+    left: 110px;
+    top: 0px;
+}

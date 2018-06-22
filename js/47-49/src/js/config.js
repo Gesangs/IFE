@@ -65,3 +65,52 @@ export function delay(time, any) {
         setTimeout(() => { resolve(any) }, time)
     })
 } 
+
+export class TextBox {
+    constructor(obj) {
+        this.left = obj.left;
+        this.top = obj.top;
+        this.img = obj.img;
+        this.class = obj.class;
+        this.box = null;
+        this.text = null;
+        this.createBox()
+    }
+
+    createBox() {
+        let $div = document.createElement("div");
+        $div.className = this.class;
+        this.text = document.createElement("p");
+        $div.appendChild(this.text);
+        $div.appendChild(this.img)
+        document.getElementById("app").appendChild($div);
+        $div.style = `left:${this.left}px; top:${this.top}px;`;
+        this.box = $div;
+    }
+
+    moveTo(x, y) {
+        this.box.style = `left:${x}px; top:${y}px;`;
+    }
+
+    setText(text) {
+        this.text.innerHTML = "";
+        if(Array.isArray(text)) {
+            text.map((item) => {
+                let eatState = item.eatState;
+                let cookState = item.cookState;
+                switch(this.class) {
+                    case "cook":
+                        cookState = typeof cookState === "object" ? "待做" : cookState === 0 ? "做好了" : "还剩" + cookState + "s做好";
+                        this.text.innerHTML += `${item.name}: ${cookState} <br />`;
+                    break;
+                    case "customer":
+                        eatState = typeof eatState === "object" ? "还没上" : eatState === 0 ? "吃完了" : "还剩" + eatState + "s吃完";
+                        this.text.innerHTML += `${item.name}: ${eatState} <br />`;
+                    break;
+                }
+            })
+        } else {
+            this.text.innerHTML = text;
+        }
+    }
+}

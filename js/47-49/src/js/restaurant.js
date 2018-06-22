@@ -44,7 +44,7 @@ export class Restaurant {
         this.cash += cash;
         document.getElementById("cash").innerHTML = "$" + this.cash;
         this.customerQueue.map((item) => {
-            item.y -= 120;
+            item.y -= (item.height + 20);
             item.node.moveTo(item.x, item.y);
         })
         this.next();

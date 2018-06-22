@@ -15,8 +15,8 @@ restaurant.hire("Cook", {
     id: 1,
     name: "cook",
     wage: 10000,
-    x: 200,
-    y: 200,
+    x: 100,
+    y: 100,
     width: 100,
     height: 100
 });
@@ -26,8 +26,8 @@ restaurant.hire("Waiter", {
     id: 2,
     name: "waiter",
     wage: 8000,
-    x: 600,
-    y: 200,
+    x: 500,
+    y: 100,
     width: 100,
     height: 100
 });
@@ -36,8 +36,8 @@ restaurant.hire("Waiter", {
 for(let i = 0; i < 6; i++) {
     restaurant.setCustomerQueue(new Customer({
         name: "客人" + (i+1),
-        x: 1200,
-        y: 200 + 120 * i,
+        x: 900,
+        y: 100 + (100 + 20) * i,
         width: 100,
         height: 100
     }));

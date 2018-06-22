@@ -23,18 +23,15 @@ export class Customer extends Handler {
         setText("小二请上菜")
         let waiter = this.next.waiter;
         waiter.node.moveTo(this.x - 100, this.y);
-        delay(900).then(() => {
-            waiter.node.setText("欢迎光临，请问您需要点什么～")
-        })
+        waiter.node.setText("欢迎光临，请问您需要点什么～")
         // 随机点几个菜
         let len = random(4) + 1;
         // 随机点菜
-        while (len) {
+        while (len--) {
             let index = random(menu.length)
             let food = new Food(menu[index]);
             this.foodList.push(food);
             this.cash += food.profit;
-            len--;
         }
         await delay(3000, this.foodList).then((list) => {
             setText(list)
@@ -85,5 +82,5 @@ export class Customer extends Handler {
 
 // 生成随机数
 function random(len) {
-    return Math.floor(Math.random() * (len - 1));
+    return Math.floor(Math.random() * len);
 }

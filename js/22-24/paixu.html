@@ -155,6 +155,36 @@
 
           console.log(menuObject(menuArr))
 
+
+
+// 快速排序
+          let array = [7,2,2,3,1,4,5,6,9,6,8,21];
+
+           let partition = function(arr, low, high) {
+               let first = arr[low];
+               while(low < high) {
+                   while((arr[high] >= first) && (low < high)) high--;
+                   if(low < high) arr[low++] = arr[high];
+                   while(arr[low] < first && (low < high)) low++;
+                   if(low < high) arr[high--] = arr[low];
+               }
+               arr[low] = first;
+               return low;
+           }
+
+           let QSort = function(arr, s, t) {
+               if(s < t) {
+                   let i = partition(arr, s, t);
+                   QSort(arr, s, i - 1);
+                   QSort(arr, i + 1, t);
+               } else {
+                   return;
+               }
+           }
+
+           QSort(array, 0, array.length - 1);
+           console.log(array);
+
     </script>
 </body>
 </html>

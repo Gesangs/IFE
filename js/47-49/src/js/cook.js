@@ -1,12 +1,11 @@
 import { Employee } from "./employee"
-import { delay, TextBox } from "./config";
+import { delay } from "./config";
 export class Cook extends Employee {
     constructor(obj) {
         super(obj)
 
         this.cooking = this.cooking.bind(this)
-        this.draw()
-        this.node = null;
+        this.draw("cook")
         this.timer = null;
     }
 
@@ -23,19 +22,6 @@ export class Cook extends Employee {
             food.startCooking(food.time).then(clearInterval)
             await delay(food.time, food).then(this.next.toCustomer);
         }            
-    }
-    draw() {
-        let image = new Image(this.width, this.height);
-        image.src = "../src/image/cook.jpeg";
-        image.onload = () => {
-            let box = new TextBox({
-                left: this.x,
-                top: this.y,
-                img: image,
-                class: "cook"
-            })
-            this.node = box;
-        }
     }
     
 }
